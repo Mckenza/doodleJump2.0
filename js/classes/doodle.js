@@ -1,8 +1,8 @@
 class Doodle{
     constructor(){
         this.countDoodle = {
-            xStart: 200,
-            yStart: 700,
+            xStart: 230,
+            yStart: 500,
             height: 40,
             vx: 0,
             vy: 8,
