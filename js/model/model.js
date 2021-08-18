@@ -12,25 +12,72 @@ class Model{
             startX: 10,
             current: 780,
         }
+        
+
 
         /* Настройка расстояний между платформами при спавне */
         this.configPlatfowm = {
             minRange: 20,
             maxRange: 70,
         }
-        //this.spawnPlatforms();
+
     }
 
     getAnimation(){
-        let {xStart, yStart, height, vx, vy} = this.doodle.getCountDoodle();  // данные о дудле
-
+        let {xStart, yStart, height, vx, vy, direction} = this.doodle.getCountDoodle();  // данные о дудле
         this.spawnPlatforms();
-        this.doodle.setCountDoodle({xStart, yStart, height, vx, vy});
-        this.view.draw(this.doodle.getCountDoodle(), this.fieldPlatform);
+
+        /* true - низ, false - верх */
+        if(direction){
+            yStart += vy;
+            vy += 0.04;
+
+            this.fieldPlatform.forEach((value)=>{
+                const coords = value.getCoords();
+                if(coords[1] < yStart){
+                    return;
+                }
+                if(coords[1] < yStart + height){
+                    if((coords[0] <= xStart && coords[0] + 80 >= xStart + height) || (coords[0] > xStart && coords[0] <= xStart + height) || (coords[0] + 80 >= xStart && coords[0] + 80 < xStart + height)){
+                        vy = 4;
+                        direction = false;
+                    }
+                }
+            })
+        }
+
+        if(!direction){
+            if(yStart <= 400){
+
+                const d = this.fieldPlatform.map((value)=>{
+                    const coords = value.getCoords();
+                    return [coords[0], coords[1] += vy];
+                })
+                vy -= 0.04;
+                this.startValue.current += vy; /* сдвиг сверху вниз и отслеживать последние кооринаты */
+    
+                if(vy <= 0){
+                    direction = true;
+                    vy = 0;
+                }
+            }
+            if(yStart > 400){
+                yStart -= vy;
+                vy -= 0.04;
+    
+                if(vy <= 0){
+                    direction = true;
+                    vy = 0;
+                }
+            }  
+        }
+
+        this.doodle.setCountDoodle({xStart, yStart, height, vx, vy, direction});
+        this.view.draw({xStart, yStart, height, vx, vy, direction}, this.fieldPlatform);
     }
 
     startTimer(){
-        setInterval(this.getAnimation.bind(this), 1000);
+        setInterval(this.getAnimation.bind(this), 5);
     }
 
     spawnPlatforms(){
@@ -38,14 +85,25 @@ class Model{
         let randomHeightBetweenPlatform = 0;
         let randomXforPlatform = 20;
 
-        for(let i = currentHeight; i > -800;){
-            randomXforPlatform = Math.floor(Math.random() * (401 - 20) + 20);
-            this.fieldPlatform.push(new BasicPlatfowm([randomXforPlatform, i]));
+        if(currentHeight > -200){
+            for(let i = currentHeight; i > -800;){
+                randomXforPlatform = Math.floor(Math.random() * (401 - 20) + 20);
+                this.fieldPlatform.push(new BasicPlatfowm([randomXforPlatform, i]));
+    
+                randomHeightBetweenPlatform = Math.floor(Math.random() * (this.configPlatfowm.maxRange + 1 - this.configPlatfowm.minRange) + this.configPlatfowm.minRange);
+                i -= randomHeightBetweenPlatform;
+                this.startValue.current -= randomHeightBetweenPlatform;
+            } 
+        }
+        
+        /* чистим что уже за отрисовкой */
 
-            randomHeightBetweenPlatform = Math.floor(Math.random() * (this.configPlatfowm.maxRange + 1 - this.configPlatfowm.minRange) + this.configPlatfowm.minRange);
-            i -= randomHeightBetweenPlatform;
-            this.startValue.current -= randomHeightBetweenPlatform;
-        } 
+        this.fieldPlatform.map((value, index) =>{
+            const coordsOver = value.getCoords();
+            if(coordsOver[1] > 1000){
+                this.fieldPlatform.splice(index, 1);
+            }
+        });
     }
 }
 

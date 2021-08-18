@@ -5,7 +5,8 @@ class Doodle{
             yStart: 500,
             height: 40,
             vx: 0,
-            vy: 8,
+            vy: 0,
+            direction: true, /* true - низ, false - верх */
         }
     }
 
