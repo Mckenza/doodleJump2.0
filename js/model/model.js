@@ -13,19 +13,36 @@ class Model{
             current: 780,
         }
         
-
-
         /* Настройка расстояний между платформами при спавне */
         this.configPlatfowm = {
             minRange: 20,
-            maxRange: 70,
+            maxRange: 90,
         }
+    }
 
+    getObjDoodle(){
+        return this.doodle;
     }
 
     getAnimation(){
-        let {xStart, yStart, height, vx, vy, direction} = this.doodle.getCountDoodle();  // данные о дудле
+        let {xStart, yStart, height, vx, vy, direction, moveRight, moveLeft} = this.doodle.getCountDoodle();  // данные о дудле
         this.spawnPlatforms();
+
+        /* право */
+        if(moveRight){
+            xStart += vx;
+            if(vx < 2){
+                vx += 0.01;  
+            }    
+        }
+
+        /* Лево */
+        if(moveLeft){
+            xStart -= vx;
+            if(vx < 2){
+                vx += 0.01;  
+            }  
+        }
 
         /* true - низ, false - верх */
         if(direction){
@@ -37,7 +54,7 @@ class Model{
                 if(coords[1] < yStart){
                     return;
                 }
-                if(coords[1] < yStart + height){
+                if(coords[1] - 7 < yStart + height){
                     if((coords[0] <= xStart && coords[0] + 80 >= xStart + height) || (coords[0] > xStart && coords[0] <= xStart + height) || (coords[0] + 80 >= xStart && coords[0] + 80 < xStart + height)){
                         vy = 4;
                         direction = false;
@@ -72,8 +89,8 @@ class Model{
             }  
         }
 
-        this.doodle.setCountDoodle({xStart, yStart, height, vx, vy, direction});
-        this.view.draw({xStart, yStart, height, vx, vy, direction}, this.fieldPlatform);
+        this.doodle.setCountDoodle({xStart, yStart, height, vx, vy, direction, moveRight, moveLeft});
+        this.view.draw({xStart, yStart, height, vx, vy, direction, moveRight, moveLeft}, this.fieldPlatform);
     }
 
     startTimer(){
