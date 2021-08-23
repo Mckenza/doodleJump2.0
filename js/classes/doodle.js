@@ -3,7 +3,7 @@ class Doodle{
         this.countDoodle = {
             xStart: 230,
             yStart: 500,
-            height: 40,
+            height: 60,
             vx: 1,
             vy: 0,
             direction: true, /* true - низ, false - верх */

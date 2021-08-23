@@ -64,7 +64,8 @@ class Model {
                 if (coords[1] < yStart) {
                     return;
                 }
-                if (coords[1] - 7 < yStart + height) {
+/*coords[1] < yStart + height */
+                if (coords[1] < yStart + height && coords[1] + 15 > yStart + height) {
                     if ((coords[0] <= xStart && coords[0] + 80 >= xStart + height) || (coords[0] > xStart && coords[0] <= xStart + height) || (coords[0] + 80 >= xStart && coords[0] + 80 < xStart + height)) {
                         if(extension === 'tramp'){
                             vy = 10;
