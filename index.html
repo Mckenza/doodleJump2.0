@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        canvas{
-            border: 1px black solid;
-        }
-        .background_doodle{
-            background-image: url('../img/background.png');
-            width: 500px;
-            height: 800px;
-        }
-    </style>
+    <title>Doodle Jump</title>
+    <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
-    <div class="background_doodle">
-        <canvas id="canvas_main" width="500" height="800"></canvas>
+    <div class="background_all">
+        
     </div>
+    <div class="doodlejump_main">
+        <div class="wrap_canvas_">
+            <div class="background_doodle">
+                <canvas id="canvas_main" width="500" height="800"></canvas>
+            </div>
+        </div>
+        <div class="info_and_manage">
+            Играть<br>
+            Рекорды<br>
+            126.340.63<br>
+        </div>
+    </div>
+    
     <script type="module" src="js/init.js"></script>
 </body>
 </html>

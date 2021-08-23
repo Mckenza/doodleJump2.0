@@ -1,0 +1,60 @@
+@font-face {
+    font-family: 'Neucha';
+    src: url('../fonts/Neucha-Regular.ttf');
+}
+@font-face {
+    font-family: 'AmaticSC-Bold';
+    src: url('../fonts/AmaticSC-Bold.ttf');
+}
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+}
+
+/* app and info */
+
+.doodlejump_main{
+    height: 100%;
+    width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    background-image: url('../img/background_all.png');
+}
+
+.info_and_manage{
+    height: 100%;
+    width: 100%;
+    margin: 15px;
+    font-family: 'AmaticSC-Bold';
+    font-size: 46px;
+    color: rgba(16, 16, 172, 0.789);
+}
+
+/* canvas and game's field */
+
+.wrap_canvas_{
+    width: 520px;
+    height: 820px;
+    margin: 15px 0 0 0;
+}
+
+.background_doodle{
+    width: 100%;
+    height: 100%;
+    background-image: url('../img/border.png');
+}
+
+canvas{
+    margin: 12px 12px 0 12px;
+}
+
+
+
+
