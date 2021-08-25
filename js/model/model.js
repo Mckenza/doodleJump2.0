@@ -2,12 +2,15 @@ import { Doodle } from "/js/classes/doodle.js";
 import { BasicPlatform } from '/js/classes/basic_platform.js';
 import { RightLeftPlatform } from '/js/classes/right_left_platform.js';
 import { UpDownPlatform } from '/js/classes/up_down_platform.js';
+import { Mobs } from '/js/classes/mobs.js';
+import { Bullet } from '/js/classes/bullet.js';
 
 class Model {
     constructor(view) {
         this.view = view;
         this.doodle = new Doodle();
         this.fieldPlatform = [];
+        this.arrayBullets = [];
         this.startTimer();
         this.startValue = {
             startY: 780,
@@ -29,6 +32,16 @@ class Model {
     getAnimation() {
         let { xStart, yStart, height, vx, vy, direction, moveRight, moveLeft } = this.doodle.getCountDoodle();  // данные о дудле
         this.spawnPlatforms();
+        this.startValue.startY = yStart;
+        this.startValue.startX = xStart;
+        let coordsBul = [];
+
+        if(this.arrayBullets.length !== 0){  
+            this.arrayBullets.map((value)=>{
+                coordsBul.push(value.getCoords());
+            })
+            console.log(coordsBul);
+        }
 
         if(xStart > 500){
             xStart = -60;
@@ -64,7 +77,7 @@ class Model {
                 if (coords[1] < yStart) {
                     return;
                 }
-/*coords[1] < yStart + height */
+                /*coords[1] < yStart + height */
                 if (coords[1] < yStart + height && coords[1] + 15 > yStart + height) {
                     if ((coords[0] <= xStart && coords[0] + 80 >= xStart + height) || (coords[0] > xStart && coords[0] <= xStart + height) || (coords[0] + 80 >= xStart && coords[0] + 80 < xStart + height)) {
                         if(extension === 'tramp'){
@@ -107,11 +120,16 @@ class Model {
         }
 
         this.doodle.setCountDoodle({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft });
-        this.view.draw({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft }, this.fieldPlatform);
+        this.view.draw({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft }, this.fieldPlatform, coordsBul);
     }
 
     startTimer() {
         setInterval(this.getAnimation.bind(this), 5);
+    }
+
+    spawnBullet(){
+        this.arrayBullets.push(new Bullet([this.startValue.startX, this.startValue.startY]));
+        //console.log(this.arrayBullets);
     }
 
     spawnPlatforms() {
@@ -129,6 +147,9 @@ class Model {
                 } else if (randomTypePlatform > 11 && randomTypePlatform < 15){
                     upDownCoef = 250;
                     this.fieldPlatform.push(new UpDownPlatform([randomXforPlatform, i]));
+                } else if (randomTypePlatform > 15 && randomTypePlatform < 18){
+                    this.fieldPlatform.push(new Mobs([randomXforPlatform, i]));
+                    upDownCoef = 80;
                 } else {
                     this.fieldPlatform.push(new BasicPlatform([randomXforPlatform, i]));
                 }

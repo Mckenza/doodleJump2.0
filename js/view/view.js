@@ -20,7 +20,7 @@ class View {
         this.springImg.src = 'img/spring.png';
     }
 
-    draw(dataDoodle, platforms) {
+    draw(dataDoodle, platforms, bullets) {
         const { xStart, yStart, height, vx, vy, direction, moveRight, moveLeft } = dataDoodle;
         this.canvasDraw.clearRect(0, 0, 500, 800);
 
@@ -53,6 +53,11 @@ class View {
                 }
                 
             }
+        }
+
+        for(let i = 0; i < bullets.length; i++){
+            this.canvasDraw.arc(bullets[i][0], bullets[i][1], 3, (Math.PI/180) * 0, (Math.PI/180) * 360);
+            this.canvasDraw.fill();
         }
         
         this.canvasDraw.drawImage(this.stateImg, xStart, yStart);

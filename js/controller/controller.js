@@ -31,6 +31,12 @@ class Controller{
                 this.objDoodle.setIsMoveLeft(false);
                 this.objDoodle.setVXzero();
             }
+        });
+
+        addEventListener('keypress', (e) =>{
+            if(e.code === 'Space'){
+                this.model.spawnBullet();
+            }
         })
     }
 }
