@@ -56,7 +56,9 @@ class View {
         }
 
         for(let i = 0; i < bullets.length; i++){
-            this.canvasDraw.arc(bullets[i][0], bullets[i][1], 3, (Math.PI/180) * 0, (Math.PI/180) * 360);
+            let coodrs = bullets[i].getCoords();
+            this.canvasDraw.beginPath();
+            this.canvasDraw.arc(coodrs[0], coodrs[1], 3, (Math.PI/180) * 0, (Math.PI/180) * 360);
             this.canvasDraw.fill();
         }
         

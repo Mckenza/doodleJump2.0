@@ -36,12 +36,14 @@ class Model {
         this.startValue.startX = xStart;
         let coordsBul = [];
 
+        /*
         if(this.arrayBullets.length !== 0){  
             this.arrayBullets.map((value)=>{
                 coordsBul.push(value.getCoords());
             })
             console.log(coordsBul);
         }
+        */
 
         if(xStart > 500){
             xStart = -60;
@@ -120,7 +122,7 @@ class Model {
         }
 
         this.doodle.setCountDoodle({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft });
-        this.view.draw({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft }, this.fieldPlatform, coordsBul);
+        this.view.draw({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft }, this.fieldPlatform, this.arrayBullets);
     }
 
     startTimer() {
@@ -129,7 +131,7 @@ class Model {
 
     spawnBullet(){
         this.arrayBullets.push(new Bullet([this.startValue.startX, this.startValue.startY]));
-        //console.log(this.arrayBullets);
+        console.log(this.arrayBullets);
     }
 
     spawnPlatforms() {
