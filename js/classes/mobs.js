@@ -3,9 +3,15 @@ import { BasicPlatform } from '/js/classes/basic_platform.js';
 class Mobs extends BasicPlatform {
     constructor(coords) {
         super(coords);
-        this.vx = 1.5;
+        this.vx = 1.2;
         this.type = 'mob';
+        this.add = 'none';      
         this.move();
+        this.randomMob = this.randomMob();
+    }
+
+    getRandomMob(){
+        return this.randomMob;
     }
 
     move() {
@@ -28,6 +34,11 @@ class Mobs extends BasicPlatform {
                 }
             }
         }, 5);
+    }
+
+    randomMob(){
+        let randomMob = Math.floor(Math.random() * 101);
+        return randomMob;
     }
 }
 

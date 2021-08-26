@@ -20,7 +20,7 @@ class Model {
 
         /* Настройка расстояний между платформами при спавне */
         this.configPlatfowm = {
-            minRange: 20,
+            minRange: 30,
             maxRange: 70,
         }
     }
@@ -34,21 +34,27 @@ class Model {
         this.spawnPlatforms();
         this.startValue.startY = yStart;
         this.startValue.startX = xStart;
-        let coordsBul = [];
 
-        /*
-        if(this.arrayBullets.length !== 0){  
-            this.arrayBullets.map((value)=>{
-                coordsBul.push(value.getCoords());
+        /* столкновение пули и моба */
+        this.arrayBullets.map((value, index) => {
+            const coordsBullet = value.getCoords();
+            this.fieldPlatform.map((v, i) => {
+                const coordsMob = v.getCoords();
+                if (v.getType() === 'mob') {
+                    if (coordsBullet[0] > coordsMob[0] && coordsBullet[0] < coordsMob[0] + 80 && coordsBullet[1] < coordsMob[1] + 50 && coordsBullet[1] > coordsMob[1]) {
+                        this.arrayBullets.splice(index, 1);
+                        this.fieldPlatform.splice(i, 1);
+                    }
+                }
             })
-            console.log(coordsBul);
-        }
-        */
+        })
 
-        if(xStart > 500){
+        /* выход за пределы (лево) */
+        if (xStart > 500) {
             xStart = -60;
         }
-        if(xStart < -60){
+        /* выход за пределы (лево) */
+        if (xStart < -60) {
             xStart = 498;
         }
 
@@ -79,12 +85,11 @@ class Model {
                 if (coords[1] < yStart) {
                     return;
                 }
-                /*coords[1] < yStart + height */
                 if (coords[1] < yStart + height && coords[1] + 15 > yStart + height) {
                     if ((coords[0] <= xStart && coords[0] + 80 >= xStart + height) || (coords[0] > xStart && coords[0] <= xStart + height) || (coords[0] + 80 >= xStart && coords[0] + 80 < xStart + height)) {
-                        if(extension === 'tramp'){
+                        if (extension === 'tramp') {
                             vy = 10;
-                        } else if (extension === 'spring'){
+                        } else if (extension === 'spring') {
                             vy = 7;
                         } else {
                             vy = 4;
@@ -129,9 +134,14 @@ class Model {
         setInterval(this.getAnimation.bind(this), 5);
     }
 
-    spawnBullet(){
+    /* стреляем и чистим пули за пределами отрисовки */
+    spawnBullet() {
         this.arrayBullets.push(new Bullet([this.startValue.startX, this.startValue.startY]));
-        console.log(this.arrayBullets);
+        this.arrayBullets.map((value, index) => {
+            if (value.getCoords()[1] < -450) {
+                this.arrayBullets.splice(index, 1);
+            }
+        });
     }
 
     spawnPlatforms() {
@@ -145,13 +155,24 @@ class Model {
                 randomXforPlatform = Math.floor(Math.random() * (401 - 20) + 20);
                 let randomTypePlatform = Math.floor(Math.random() * 101 + 1);
                 if (randomTypePlatform < 10) {
-                    this.fieldPlatform.push(new RightLeftPlatform([20, i]));
-                } else if (randomTypePlatform > 11 && randomTypePlatform < 15){
-                    upDownCoef = 250;
+                    const randomSpawn = Math.floor(Math.random() * 300 + 30);
+                    this.fieldPlatform.push(new RightLeftPlatform([randomSpawn, i]));
+                } else if (randomTypePlatform > 11 && randomTypePlatform < 14 && !(this.fieldPlatform[this.fieldPlatform.length - 1] instanceof UpDownPlatform)) {
+                    upDownCoef = 300;
                     this.fieldPlatform.push(new UpDownPlatform([randomXforPlatform, i]));
-                } else if (randomTypePlatform > 15 && randomTypePlatform < 18){
-                    this.fieldPlatform.push(new Mobs([randomXforPlatform, i]));
-                    upDownCoef = 80;
+                } else if (randomTypePlatform > 15 && randomTypePlatform < 18) {
+                    if(randomXforPlatform > 200){
+                        const randomWithMob = Math.floor(Math.random() * 100 + 20);
+                        const randomYwithMob = Math.floor(Math.random() * 20);
+                        this.fieldPlatform.push(new Mobs([randomXforPlatform, i]));
+                        this.fieldPlatform.push(new BasicPlatform([randomWithMob, i - randomYwithMob]));
+                    } else {
+                        const randomWithMob = Math.floor(Math.random() * 101 + 300);
+                        const randomYwithMob = Math.floor(Math.random() * 20);
+                        this.fieldPlatform.push(new Mobs([randomXforPlatform, i]));
+                        this.fieldPlatform.push(new BasicPlatform([randomWithMob, i - randomYwithMob]));
+                    }
+                    upDownCoef = 60;
                 } else {
                     this.fieldPlatform.push(new BasicPlatform([randomXforPlatform, i]));
                 }
@@ -164,7 +185,6 @@ class Model {
         }
 
         /* чистим что уже за отрисовкой */
-
         this.fieldPlatform.map((value, index) => {
             const coordsOver = value.getCoords();
             if (coordsOver[1] > 1000) {

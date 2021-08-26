@@ -18,6 +18,10 @@ class View {
         this.trampImg.src = 'img/tramp.png';
         this.springImg = new Image();
         this.springImg.src = 'img/spring.png';
+        this.mobOne = new Image();
+        this.mobOne.src = 'img/mob_one.png';
+        this.mobTwo = new Image();
+        this.mobTwo.src = 'img/mob_two.png';
     }
 
     draw(dataDoodle, platforms, bullets) {
@@ -50,6 +54,15 @@ class View {
                 }
                 if(extension === 'spring'){
                     this.canvasDraw.drawImage(this.springImg, platform[0] + 30, platform[1] - 10);
+                }
+                if(typePlatfowm === 'mob'){
+                    let randomMob = platforms[i].getRandomMob();
+                    if(randomMob < 50){
+                        this.canvasDraw.drawImage(this.mobOne, platform[0], platform[1]);
+                    }
+                    if(randomMob > 50){
+                        this.canvasDraw.drawImage(this.mobTwo, platform[0], platform[1]);
+                    }
                 }
                 
             }
