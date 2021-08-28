@@ -4,11 +4,13 @@ import { RightLeftPlatform } from '/js/classes/right_left_platform.js';
 import { UpDownPlatform } from '/js/classes/up_down_platform.js';
 import { Mobs } from '/js/classes/mobs.js';
 import { Bullet } from '/js/classes/bullet.js';
+import { AudioDoodle } from '/js/classes/audio.js';
 
 class Model {
     constructor(view) {
         this.view = view;
         this.doodle = new Doodle();
+        this.audio = new AudioDoodle();
         this.fieldPlatform = [];
         this.arrayBullets = [];
         this.startTimer();
@@ -88,10 +90,13 @@ class Model {
                 if (coords[1] < yStart + height && coords[1] + 15 > yStart + height) {
                     if ((coords[0] <= xStart && coords[0] + 80 >= xStart + height) || (coords[0] > xStart && coords[0] <= xStart + height) || (coords[0] + 80 >= xStart && coords[0] + 80 < xStart + height)) {
                         if (extension === 'tramp') {
+                            this.audio.playTramp();
                             vy = 10;
                         } else if (extension === 'spring') {
+                            this.audio.playSpring();
                             vy = 7;
                         } else {
+                            this.audio.playJump();
                             vy = 4;
                         }
                         direction = false;
@@ -136,6 +141,7 @@ class Model {
 
     /* стреляем и чистим пули за пределами отрисовки */
     spawnBullet() {
+        this.audio.playShoot();
         this.arrayBullets.push(new Bullet([this.startValue.startX, this.startValue.startY]));
         this.arrayBullets.map((value, index) => {
             if (value.getCoords()[1] < -450) {

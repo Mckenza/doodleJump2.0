@@ -15,17 +15,99 @@
 body{
     height: 100vh;
     width: 100%;
+    position: relative;
+}
+
+.background_all{
+    height: 100%;
+    width: 800px;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 400px);
+    background-image: url('../img/background_all.png');
+    z-index: 1;
+}
+
+/* Start menu */
+
+.start_menu{
+    height: 100%;
+    width: 800px;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 400px);
+    z-index: 10;
+}
+
+.title_game{
+    position: absolute;
+    top: 70px;
+    left: 70px;
+
+}
+
+.button_start{
+    position: absolute;
+    top: 150px;
+    left: 100px;
+}
+
+.button_start span{
+    position: absolute;
+    top: calc(50% - 35px);
+    left: calc(50% - 46px);
+    font-family: 'AmaticSC-Bold';
+    font-size: 50px;
+    color: rgba(16, 16, 172, 0.789); 
+}
+
+.button_records{
+    position: absolute;
+    top: 320px;
+    left: 170px;
+}
+
+.button_records span{
+    position: absolute;
+    top: calc(50% - 30px);
+    left: calc(50% - 46px);
+    font-family: 'AmaticSC-Bold';
+    font-size: 40px;
+    color: rgba(16, 16, 172, 0.789); 
+}
+
+.button_setting{
+    position: absolute;
+    top: 720px;
+    left: 500px;
+}
+
+.button_setting span{
+    position: absolute;
+    top: calc(50% - 30px);
+    left: calc(50% - 46px);
+    font-family: 'AmaticSC-Bold';
+    font-size: 40px;
+    color: rgba(16, 16, 172, 0.789); 
+}
+
+.canvas_start_menu{
+    position: absolute;
+    top: 330px;
+    left: 510px;
 }
 
 /* app and info */
 
 .doodlejump_main{
     height: 100%;
-    width: 1000px;
-    margin: 0 auto;
+    width: 800px;
+    position: absolute;
+    top: 0;
+    left: calc(50% - 400px);
     display: flex;
     flex-direction: row;
-    background-image: url('../img/background_all.png');
+    z-index: 20;
 }
 
 .info_and_manage{
