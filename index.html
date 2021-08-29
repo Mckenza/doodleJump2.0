@@ -9,27 +9,30 @@
 </head>
 <body>
     <div class="background_all"></div>
-    <div class="start_menu">
+    <div class="start_menu" id="main_menu_id">
         <div class="title_game">
             <img src="svg/title.svg" width="220" height="60">
         </div>
         <div class="button_start">
             <span>Начать!</span>
-            <img src="svg/buttonStart.svg" width="220" height="100">  
+            <img src="svg/buttonStart.svg" width="220" height="100">
+            <input type="button" id="button_start_mainmenu_id">
         </div>
         <div class="button_records">
             <span>Рекорды</span>
             <img src="svg/buttonRecords.svg" width="250" height="100">
+            <input type="button" id="button_records_mainmenu_id">
         </div>
         <div class="button_setting">
             <span>Настройки</span>
             <img src="svg/buttonSetting.svg" width="250" height="100">
+            <input type="button" id="button_settings_mainmenu_id">
         </div>
         <div class="canvas_start_menu">
-            <canvas id="canvas_menu" width="200" height="400"></canvas>
+            <canvas id="pre_doodle_canvas_id" width="200" height="400"></canvas>
         </div>
     </div>
-    <!--<div class="doodlejump_main">
+    <div class="doodlejump_main" id="field_game_id">
         <div class="wrap_canvas_">
             <div class="background_doodle">
                 <canvas id="canvas_main" width="500" height="800"></canvas>
@@ -40,7 +43,7 @@
             Рекорды<br>
             126.340.63<br>
         </div>
-    </div>-->
+    </div>
     
     
     <script type="module" src="js/init.js"></script>

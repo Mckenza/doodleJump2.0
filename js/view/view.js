@@ -1,6 +1,7 @@
 
 class View {
     constructor() {
+        this.gameDiv = document.getElementById('field_game_id');
         this.canvas = document.getElementById('canvas_main');
         this.canvasDraw = this.canvas.getContext('2d');
         this.doodleImgRight = new Image();
@@ -22,6 +23,10 @@ class View {
         this.mobOne.src = 'img/mob_one.png';
         this.mobTwo = new Image();
         this.mobTwo.src = 'img/mob_two.png';
+    }
+
+    setStyleGameField(){
+        this.gameDiv.classList.add('viewGame');
     }
 
     draw(dataDoodle, platforms, bullets) {

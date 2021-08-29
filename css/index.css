@@ -16,6 +16,7 @@ body{
     height: 100vh;
     width: 100%;
     position: relative;
+    overflow: hidden;
 }
 
 .background_all{
@@ -61,6 +62,16 @@ body{
     color: rgba(16, 16, 172, 0.789); 
 }
 
+#button_start_mainmenu_id, #button_records_mainmenu_id, #button_settings_mainmenu_id{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    border: none;
+}
+
 .button_records{
     position: absolute;
     top: 320px;
@@ -97,17 +108,25 @@ body{
     left: 510px;
 }
 
+.start_menu.leaveView{
+    opacity: 0;
+    top: -100%;
+    transition: opacity 1s, top 2s;
+
+}
+
 /* app and info */
 
 .doodlejump_main{
     height: 100%;
     width: 800px;
     position: absolute;
-    top: 0;
+    top: 800px;
     left: calc(50% - 400px);
     display: flex;
     flex-direction: row;
     z-index: 20;
+    opacity: 0;
 }
 
 .info_and_manage{
@@ -117,6 +136,12 @@ body{
     font-family: 'AmaticSC-Bold';
     font-size: 46px;
     color: rgba(16, 16, 172, 0.789);
+}
+
+.doodlejump_main.viewGame{
+    opacity: 100;
+    top: 0;
+    transition: opacity 1s, top 2s;
 }
 
 /* canvas and game's field */
