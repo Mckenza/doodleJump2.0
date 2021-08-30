@@ -5,9 +5,21 @@ class Controller{
     constructor(){
         this.view = new View();
         this.view.setStyleGameField();
-        this.model = new Model(this.view);
-        this.objDoodle = this.model.getObjDoodle();
+        this.model = null;
+        this.objDoodle = null;
+        this.initModel();
         this.events();
+    }
+
+    initModel(){
+        setTimeout(()=>{
+            this.view.setStyleReady();
+        }, 2000);
+
+        setTimeout(()=>{
+            this.model = new Model(this.view);
+            this.objDoodle = this.model.getObjDoodle();
+        }, 4000);
     }
 
     /* кнопка движения по сторонам*/ 

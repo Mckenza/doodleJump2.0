@@ -8,6 +8,7 @@ import { AudioDoodle } from '/js/classes/audio.js';
 
 class Model {
     constructor(view) {
+        this.stopTimer = false;
         this.view = view;
         this.doodle = new Doodle();
         this.audio = new AudioDoodle();
@@ -32,6 +33,10 @@ class Model {
     }
 
     getAnimation() {
+        if(this.stopTimer){
+            return;
+        }
+
         let { xStart, yStart, height, vx, vy, direction, moveRight, moveLeft } = this.doodle.getCountDoodle();  // данные о дудле
         this.spawnPlatforms();
         this.startValue.startY = yStart;
@@ -58,6 +63,29 @@ class Model {
         /* выход за пределы (лево) */
         if (xStart < -60) {
             xStart = 498;
+        }
+
+        if(yStart > 810){
+            vx = 0;
+            vy = 0;
+            if(this.fieldPlatform.length !== 0){
+                if(this.fieldPlatform[this.fieldPlatform.length - 1].getCoords()[1] < -20){
+                    this.view.setStyleRestart();
+                }
+                this.fieldPlatform.map((value) => {
+                    const coords = value.getCoords();
+                    return [coords[0], coords[1] -= 4];
+                })
+
+                this.fieldPlatform.map((value, index) => {
+                    const coordsOver = value.getCoords();
+                    if (coordsOver[1] < -400) {
+                        this.fieldPlatform.splice(index, 1);
+                    }
+                });
+            } else {
+                this.stopTimer = true;
+            }
         }
 
         /* право */

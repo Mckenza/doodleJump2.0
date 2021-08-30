@@ -1,25 +1,27 @@
 class AudioDoodle{
     constructor(){
-        this.jump = new Audio('audio/jump.wav');
-        this.tramp = new Audio('audio/trampoline.mp3');
-        this.spring = new Audio('audio/feder.mp3');
-        this.shoot = new Audio('audio/shoot.mp3');
+        this.audioObj = new Audio();
+        this.audioObj.volume = 0.1;
     }
 
     playJump(){
-        this.jump.play();
+        this.audioObj.src = 'audio/jump.wav';
+        this.audioObj.play();
     }
 
     playTramp(){
-        this.tramp.play();
+        this.audioObj.src = 'audio/trampoline.mp3';
+        this.audioObj.play();
     }
 
     playSpring(){
-        this.spring.play();
+        this.audioObj.src = 'audio/feder.mp3';
+        this.audioObj.play();
     }
 
     playShoot(){
-        this.shoot.play();
+        this.audioObj.src = 'audio/shoot.mp3';
+        this.audioObj.play();
     }
 
 

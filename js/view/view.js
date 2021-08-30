@@ -29,6 +29,14 @@ class View {
         this.gameDiv.classList.add('viewGame');
     }
 
+    setStyleReady(){
+        document.querySelector('.ready_div').classList.add('hidden');
+    }
+
+    setStyleRestart(){
+        document.querySelector('.restart_div').classList.add('nohidden');
+    }
+
     draw(dataDoodle, platforms, bullets) {
         const { xStart, yStart, height, vx, vy, direction, moveRight, moveLeft } = dataDoodle;
         this.canvasDraw.clearRect(0, 0, 500, 800);
@@ -82,6 +90,8 @@ class View {
         
         this.canvasDraw.drawImage(this.stateImg, xStart, yStart);
     }
+
+    
 }
 
 export { View }

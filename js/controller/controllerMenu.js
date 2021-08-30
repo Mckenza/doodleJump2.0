@@ -16,6 +16,7 @@ class ControllerMenu{
                 this.viewMenu.setStyleHidden();
                 this.viewMenu.setActiveButtons();   /* сделать клавиши неактивными */
                 new this.controllerGame();
+                
             }
             if(e.target.id === 'button_records_mainmenu_id'){
                 console.log('ff');
