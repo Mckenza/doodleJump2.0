@@ -70,7 +70,7 @@ class Model {
             vy = 0;
             if(this.fieldPlatform.length !== 0){
                 if(this.fieldPlatform[this.fieldPlatform.length - 1].getCoords()[1] < -20){
-                    this.view.setStyleRestart();
+                    //this.view.setStyleRestart();
                 }
                 this.fieldPlatform.map((value) => {
                     const coords = value.getCoords();
@@ -85,6 +85,7 @@ class Model {
                 });
             } else {
                 this.stopTimer = true;
+                this.view.setStyleRestart();
             }
         }
 
