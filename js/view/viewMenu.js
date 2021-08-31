@@ -1,5 +1,8 @@
 class ViewMenu {
     constructor() {
+        this.buttonStart = document.getElementById('button_start_mainmenu_id');
+        this.buttonRecords = document.getElementById('button_records_mainmenu_id');
+        this.buttonSetting = document.getElementById('button_settings_mainmenu_id');
         this.menu = document.getElementById('main_menu_id');
         this.canvasPre = document.getElementById('pre_doodle_canvas_id');
         this.canvasDraw = this.canvasPre.getContext('2d');
@@ -13,21 +16,24 @@ class ViewMenu {
         this.canvasDraw.drawImage(this.doodleImgRight, xStart, yStart);
     }
 
+    /* скрыть главное меню (при переходе на поле игры) */
     setStyleHidden(){
         this.menu.classList.add('leaveView');
+        this.buttonStart.setAttribute('disabled', true);
+        this.buttonRecords.setAttribute('disabled', true);
+        this.buttonSetting.setAttribute('disabled', true);
     }
 
     getMenuDiv(){
         return this.menu;
     }
 
+    /* Показать главное меню (из поля игры) */
     setActiveButtons(){
-        const buttonStart = document.getElementById('button_start_mainmenu_id');
-        const buttonRecords = document.getElementById('button_records_mainmenu_id');
-        const buttonSetting = document.getElementById('button_settings_mainmenu_id');
-        buttonStart.setAttribute('disabled', true);
-        buttonRecords.setAttribute('disabled', true);
-        buttonSetting.setAttribute('disabled', true);
+        this.menu.classList.remove('leaveView');
+        this.buttonStart.removeAttribute('disabled');
+        this.buttonRecords.removeAttribute('disabled');
+        this.buttonSetting.removeAttribute('disabled');
     }
 }
 

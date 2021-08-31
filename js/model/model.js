@@ -32,8 +32,12 @@ class Model {
         return this.doodle;
     }
 
+    setTimer() {
+        this.setTimer = true;
+    }
+
     getAnimation() {
-        if(this.stopTimer){
+        if (this.stopTimer) {
             return;
         }
 
@@ -65,24 +69,25 @@ class Model {
             xStart = 498;
         }
 
-        if(yStart > 810){
+        if (yStart > 810) {
             vx = 0;
             vy = 0;
-            if(this.fieldPlatform.length !== 0){
-                if(this.fieldPlatform[this.fieldPlatform.length - 1].getCoords()[1] < -20){
-                    //this.view.setStyleRestart();
-                }
+
+            this.arrayBullets.map((value, index) => {
+                this.arrayBullets.splice(index, 1);
+            });
+
+            if (this.fieldPlatform.length !== 0) {
+                this.fieldPlatform.map((value, index) => {
+                    const coordsOver = value.getCoords();
+                    if (coordsOver[1] < -100 || coordsOver[1] > 800) {
+                        this.fieldPlatform.splice(index, 1);
+                    }
+                });
                 this.fieldPlatform.map((value) => {
                     const coords = value.getCoords();
                     return [coords[0], coords[1] -= 4];
                 })
-
-                this.fieldPlatform.map((value, index) => {
-                    const coordsOver = value.getCoords();
-                    if (coordsOver[1] < -400) {
-                        this.fieldPlatform.splice(index, 1);
-                    }
-                });
             } else {
                 this.stopTimer = true;
                 this.view.setStyleRestart();
@@ -170,13 +175,15 @@ class Model {
 
     /* стреляем и чистим пули за пределами отрисовки */
     spawnBullet() {
-        this.audio.playShoot();
-        this.arrayBullets.push(new Bullet([this.startValue.startX, this.startValue.startY]));
-        this.arrayBullets.map((value, index) => {
-            if (value.getCoords()[1] < -450) {
-                this.arrayBullets.splice(index, 1);
-            }
-        });
+        if (!this.stopTimer) {
+            this.audio.playShoot();
+            this.arrayBullets.push(new Bullet([this.startValue.startX, this.startValue.startY]));
+            this.arrayBullets.map((value, index) => {
+                if (value.getCoords()[1] < -450) {
+                    this.arrayBullets.splice(index, 1);
+                }
+            });
+        }
     }
 
     spawnPlatforms() {
@@ -196,7 +203,7 @@ class Model {
                     upDownCoef = 300;
                     this.fieldPlatform.push(new UpDownPlatform([randomXforPlatform, i]));
                 } else if (randomTypePlatform > 15 && randomTypePlatform < 18) {
-                    if(randomXforPlatform > 200){
+                    if (randomXforPlatform > 200) {
                         const randomWithMob = Math.floor(Math.random() * 100 + 20);
                         const randomYwithMob = Math.floor(Math.random() * 20);
                         this.fieldPlatform.push(new Mobs([randomXforPlatform, i]));
@@ -222,7 +229,11 @@ class Model {
         /* чистим что уже за отрисовкой */
         this.fieldPlatform.map((value, index) => {
             const coordsOver = value.getCoords();
-            if (coordsOver[1] > 1000) {
+            const type = value.getType();
+            if (coordsOver[1] > 810 && type !== 'upDown') {
+                this.fieldPlatform.splice(index, 1);
+            }
+            if (type === 'upDown' && coordsOver[1] > 900) {
                 this.fieldPlatform.splice(index, 1);
             }
         });

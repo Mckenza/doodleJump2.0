@@ -4,7 +4,9 @@ import { ModelMenu } from '/js/model/modelMenu.js';
 
 class ControllerMenu{
     constructor(controllerGame){
+        this.self = this;
         this.controllerGame = controllerGame;
+        this.controllerGameInit = null;
         this.viewMenu = new ViewMenu();
         this.modelMenu = new ModelMenu(this.viewMenu);
         this.buttons();
@@ -14,9 +16,8 @@ class ControllerMenu{
         addEventListener('click', (e)=>{
             if(e.target.id === 'button_start_mainmenu_id'){
                 this.viewMenu.setStyleHidden();
-                this.viewMenu.setActiveButtons();   /* сделать клавиши неактивными */
-                new this.controllerGame();
-                
+                this.controllerGameInit = null;
+                this.controllerGameInit = new this.controllerGame(this.self);         
             }
             if(e.target.id === 'button_records_mainmenu_id'){
                 console.log('ff');
@@ -25,6 +26,11 @@ class ControllerMenu{
                 console.log('s');
             }
         })
+    }
+
+    /* сделать активными кнопки главного меню */
+    setVisibleMenu(){
+        this.viewMenu.setActiveButtons();       
     }
 }
 

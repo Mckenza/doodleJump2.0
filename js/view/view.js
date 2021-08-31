@@ -3,6 +3,8 @@ class View {
     constructor() {
         this.gameDiv = document.getElementById('field_game_id');
         this.canvas = document.getElementById('canvas_main');
+        this.buttonRestart = document.getElementById('restart_button_id');
+        this.buttonMainMenu = document.getElementById('menu_button_id');
         this.canvasDraw = this.canvas.getContext('2d');
         this.doodleImgRight = new Image();
         this.doodleImgRight.src = 'img/doodleRight.png';
@@ -23,18 +25,41 @@ class View {
         this.mobOne.src = 'img/mob_one.png';
         this.mobTwo = new Image();
         this.mobTwo.src = 'img/mob_two.png';
+        this.setStyleGameField();
     }
 
+    /* показываем поле для игры и т.д. */ 
     setStyleGameField(){
         this.gameDiv.classList.add('viewGame');
     }
+    
+    /* скрываем поле игры */
+    setStyleGameFieldhidden(){
+        this.gameDiv.classList.remove('viewGame');
+    }
 
+    /* скрыть "Готовы?" */
     setStyleReady(){
         document.querySelector('.ready_div').classList.add('hidden');
     }
 
+    /* показать "Готовы?" */
+    setStyleReadyNoHidden(){
+        document.querySelector('.ready_div').classList.remove('hidden');
+    }
+
+    /* показать div с кнопками при проигрыше и сделать их активными */
     setStyleRestart(){
+        this.buttonRestart.removeAttribute('disabled');
+        this.buttonMainMenu.removeAttribute('disabled');
         document.querySelector('.restart_div').classList.add('nohidden');
+    }
+
+    /* убрать div с кнопками при рестарте и сделать их неактивными */
+    setStyleRestartHidden(){
+        this.buttonRestart.setAttribute('disabled', true);
+        this.buttonMainMenu.setAttribute('disabled', true);
+        document.querySelector('.restart_div').classList.remove('nohidden');
     }
 
     draw(dataDoodle, platforms, bullets) {
