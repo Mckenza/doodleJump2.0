@@ -62,7 +62,7 @@ body{
     color: rgba(16, 16, 172, 0.789); 
 }
 
-#button_start_mainmenu_id, #button_records_mainmenu_id, #button_settings_mainmenu_id{
+#button_start_mainmenu_id, #button_records_mainmenu_id, #button_settings_mainmenu_id, #pause_button_id{
     position: absolute;
     top: 0;
     left: 0;
@@ -135,6 +135,28 @@ body{
     margin: 15px;
     font-family: 'AmaticSC-Bold';
     font-size: 46px;
+    color: rgba(16, 16, 172, 0.789);
+    position: relative;
+}
+
+.score_div{
+    margin-top: 10px;
+    height: 70px;
+    width: 100%;
+}
+
+.pause_button{
+    height: 100px;
+    width: 100%;
+    position: relative;
+}
+
+.pause_button span{
+    position: absolute;
+    top: calc(50% - 30px);
+    left: calc(50% - 46px);
+    font-family: 'AmaticSC-Bold';
+    font-size: 40px;
     color: rgba(16, 16, 172, 0.789);
 }
 

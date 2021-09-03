@@ -7,6 +7,7 @@ class UpDownPlatform extends BasicPlatform {
         this.add = 'none';      /* добавочное к платформе*/
         this.vy = 0.75;
         this.currentUp = 300;
+        this.pause = false;
         this.move();
         this.randomAdd();
     }
@@ -14,25 +15,27 @@ class UpDownPlatform extends BasicPlatform {
     move() {
         let triggerMove = false;
         setInterval(() => {
-            if (!triggerMove) {
-                this.coords[1] -= this.vy;
-                this.currentUp -= this.vy;
-                if (this.currentUp <= 0) {
-                    triggerMove = true;
+            if (!this.pause) {
+                if (!triggerMove) {
+                    this.coords[1] -= this.vy;
+                    this.currentUp -= this.vy;
+                    if (this.currentUp <= 0) {
+                        triggerMove = true;
+                    }
                 }
-            }
 
-            if (triggerMove) {
-                this.coords[1] += this.vy;
-                this.currentUp += this.vy;
-                if (this.currentUp >= 300) {
-                    triggerMove = false;
+                if (triggerMove) {
+                    this.coords[1] += this.vy;
+                    this.currentUp += this.vy;
+                    if (this.currentUp >= 300) {
+                        triggerMove = false;
+                    }
                 }
             }
         }, 5);
     }
 
-    randomAdd(){
+    randomAdd() {
         super.randomAdd();
     }
 }

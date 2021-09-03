@@ -5,6 +5,9 @@ class View {
         this.canvas = document.getElementById('canvas_main');
         this.buttonRestart = document.getElementById('restart_button_id');
         this.buttonMainMenu = document.getElementById('menu_button_id');
+        this.scoreSpan = document.getElementById('score_span_id');
+        this.pauseButton = document.querySelector('.pause_button');
+        this.scoreSpan.textContent = 0;
         this.canvasDraw = this.canvas.getContext('2d');
         this.doodleImgRight = new Image();
         this.doodleImgRight.src = 'img/doodleRight.png';
@@ -26,6 +29,15 @@ class View {
         this.mobTwo = new Image();
         this.mobTwo.src = 'img/mob_two.png';
         this.setStyleGameField();
+    }
+
+    /* Меняем надпись на кнопки паузы */
+    changePauseName(state){
+        if(state){
+            this.pauseButton.querySelector('span').textContent = 'Продолжить';
+        } else {
+            this.pauseButton.querySelector('span').textContent = 'Пауза';
+        }
     }
 
     /* показываем поле для игры и т.д. */ 
@@ -62,9 +74,11 @@ class View {
         document.querySelector('.restart_div').classList.remove('nohidden');
     }
 
-    draw(dataDoodle, platforms, bullets) {
+    draw(dataDoodle, platforms, bullets, score) {
         const { xStart, yStart, height, vx, vy, direction, moveRight, moveLeft } = dataDoodle;
         this.canvasDraw.clearRect(0, 0, 500, 800);
+
+        this.scoreSpan.textContent = score;
 
         if (moveRight) {
             this.stateImg = this.doodleImgRight;

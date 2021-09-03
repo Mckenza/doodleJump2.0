@@ -3,10 +3,6 @@ class BasicPlatform {
         this.coords = coords; /*массив координат X Y */
         this.type = 'basic';   /*Тип платформы */
         this.add = 'none';      /* добавочное к платформе*/
-        this.paramsPlatform = {
-            height: 10,
-            width: 80,
-        }
         this.randomAdd();
     }
 
@@ -18,9 +14,6 @@ class BasicPlatform {
         this.coords = coords;
     }
 
-    getParamsPlatform(){
-        return this.paramsPlatform;
-    }
     getType(){
         return this.type;
     }
@@ -37,6 +30,10 @@ class BasicPlatform {
 
     getAdd(){
         return this.add;
+    }
+
+    pauseObj(value){
+        this.pause = value;
     }
 }
 

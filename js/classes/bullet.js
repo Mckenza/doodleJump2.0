@@ -5,16 +5,19 @@ class Bullet extends BasicPlatform {
         super(coords);
         this.vy = 5;
         this.isDel = false;
+        this.pause = false;
         this.move();
     }
 
     move() {
         setInterval(() => {
-            this.coords[1] -= this.vy;
-            if (this.coords[1] < -500) {
-                this.vy = 0;
-                this.isDel = true;
-            }
+            if(!this.pause){
+                this.coords[1] -= this.vy;
+                if (this.coords[1] < -500) {
+                    this.vy = 0;
+                    this.isDel = true;
+                }
+            }   
         }, 5);
     }
 

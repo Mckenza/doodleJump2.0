@@ -10,10 +10,12 @@ class Model {
     constructor(view) {
         this.stopTimer = false;
         this.view = view;
+        this.view.changePauseName(false);
         this.doodle = new Doodle();
         this.audio = new AudioDoodle();
         this.fieldPlatform = [];
         this.arrayBullets = [];
+        this.score = 0;
         this.startTimer();
         this.startValue = {
             startY: 780,
@@ -32,8 +34,8 @@ class Model {
         return this.doodle;
     }
 
-    setTimer() {
-        this.setTimer = true;
+    setTimer(value) {
+        this.stopTimer = value;
     }
 
     getAnimation() {
@@ -148,6 +150,7 @@ class Model {
                 })
                 vy -= 0.04;
                 this.startValue.current += vy; /* сдвиг сверху вниз и отслеживать последние кооринаты */
+                this.score = Math.floor(this.score + vy);
 
                 if (vy <= 0) {
                     direction = true;
@@ -166,7 +169,18 @@ class Model {
         }
 
         this.doodle.setCountDoodle({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft });
-        this.view.draw({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft }, this.fieldPlatform, this.arrayBullets);
+        this.view.draw({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft }, this.fieldPlatform, this.arrayBullets, this.score);
+    }
+
+    stopAllPlatform(val){
+        this.arrayBullets.map(value => {
+            value.pauseObj(val);
+        });
+        this.fieldPlatform.map(value =>{
+            if(value.getType() !== 'basic'){
+                value.pauseObj(val);
+            }
+        })
     }
 
     startTimer() {

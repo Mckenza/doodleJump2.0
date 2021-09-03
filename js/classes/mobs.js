@@ -5,12 +5,13 @@ class Mobs extends BasicPlatform {
         super(coords);
         this.vx = 1.2;
         this.type = 'mob';
-        this.add = 'none';      
+        this.add = 'none';
+        this.pause = false;
         this.move();
         this.randomMob = this.randomMob();
     }
 
-    getRandomMob(){
+    getRandomMob() {
         return this.randomMob;
     }
 
@@ -18,25 +19,27 @@ class Mobs extends BasicPlatform {
         let triggerMove = false;
         let range = 0;
         setInterval(() => {
-            if (!triggerMove) {
-                this.coords[0] += this.vx;
-                range += this.vx;
-                if (range >= 50) {
-                    triggerMove = true;
+            if (!this.pause) {
+                if (!triggerMove) {
+                    this.coords[0] += this.vx;
+                    range += this.vx;
+                    if (range >= 50) {
+                        triggerMove = true;
+                    }
                 }
-            }
 
-            if (triggerMove) {
-                this.coords[0] -= this.vx;
-                range -= this.vx;
-                if (range <= 0) {
-                    triggerMove = false;
+                if (triggerMove) {
+                    this.coords[0] -= this.vx;
+                    range -= this.vx;
+                    if (range <= 0) {
+                        triggerMove = false;
+                    }
                 }
             }
         }, 5);
     }
 
-    randomMob(){
+    randomMob() {
         let randomMob = Math.floor(Math.random() * 101);
         return randomMob;
     }

@@ -7,6 +7,7 @@ class Controller {
         this.view = null;
         this.model = null;
         this.objDoodle = null;
+        this.isPause = false;
         this.events();
         this.initModel();
     }
@@ -56,6 +57,7 @@ class Controller {
         });
 
         document.getElementById('restart_button_id').onclick = () => {
+            this.isPause = false;
             this.view.setStyleRestartHidden();
             this.model = new Model(this.view);
             this.objDoodle = this.model.getObjDoodle();
@@ -69,6 +71,20 @@ class Controller {
             this.model = null;
             this.objDoodle = null;
             this.context.setVisibleMenu();
+        }
+
+        document.getElementById('pause_button_id').onclick = () => {
+            if (!this.isPause) {
+                this.model.setTimer(true);
+                this.view.changePauseName(true);
+                this.isPause = true;
+                this.model.stopAllPlatform(true);
+            } else {
+                this.model.setTimer(false);
+                this.view.changePauseName(false);
+                this.isPause = false;
+                this.model.stopAllPlatform(false);
+            }
         }
     }
 }
