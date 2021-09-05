@@ -20,7 +20,7 @@ class ControllerMenu{
                 this.controllerGameInit = new this.controllerGame(this.self);         
             }
             if(e.target.id === 'button_records_mainmenu_id'){
-                console.log('ff');
+                this.modelMenu.getDataScore();
             }
             if(e.target.id === 'button_settings_mainmenu_id'){
                 console.log('s');

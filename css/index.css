@@ -115,6 +115,49 @@ body{
 
 }
 
+.background_shadow{
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.385);
+}
+
+.records{
+    position: absolute;
+    top: calc(50% - 300px);
+    left: calc(50% - 200px);
+    height: 600px;
+    width: 400px;
+    background-image: url('../img/backRecords.png');
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+} 
+
+.manage_record_list{
+    position: relative;
+    height: 10%;
+    width: 100%;
+}
+
+.manage_record_list *{
+    position: absolute;
+    top: 25px;
+    right: 30px;
+    height: 30px;
+    width: 70px;
+    background: transparent;
+    border: none;
+}
+
+.table_records{
+    height: 450px;
+    width: 280px;
+    margin: 20px 20px 0 70px;
+}
+
 /* app and info */
 
 .doodlejump_main{
