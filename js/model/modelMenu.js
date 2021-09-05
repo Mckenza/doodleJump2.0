@@ -1,8 +1,11 @@
-import { Doodle } from "/js/classes/doodle.js";
+import { Doodle } from '/js/classes/doodle.js';
+import { LoadData } from '/js/classes/loadData.js';
 
 class ModelMenu {
     constructor(view) {
         this.view = view;
+        this.ajax = new LoadData();
+        this.dataAjax = [];
         this.doodle = new Doodle();
         this.doodle.setCountDoodle({
             xStart: 70,
@@ -27,7 +30,6 @@ class ModelMenu {
             vy += 0.04;
 
             if (this.heightCanvas - 10 <= yStart + height) {
-                //this.audio.playJump();
                 vy = 4.84;
                 direction = false;
             }
@@ -48,8 +50,20 @@ class ModelMenu {
         this.view.draw({ xStart, yStart });
     }
 
-    setTimer(){
+    setTimer() {
         setInterval(this.getAnimation.bind(this), 5);
+    }
+
+    getDataScore(){
+        this.ajax.readData(this.loadData.bind(this));      
+    }
+    
+    loadData(data){
+        this.dataAjax = data;
+    }
+
+    parseData(){
+        this.dataAjax = this.dataAjax.map()
     }
 }
 
