@@ -7,6 +7,8 @@ class View {
         this.buttonMainMenu = document.getElementById('menu_button_id');
         this.scoreSpan = document.getElementById('score_span_id');
         this.pauseButton = document.querySelector('.pause_button');
+        this.inputNamenick = document.getElementById('nickname_input_id');
+        this.buttonSendNickname = document.getElementById('save_nickname_id');
         this.scoreSpan.textContent = 0;
         this.canvasDraw = this.canvas.getContext('2d');
         this.doodleImgRight = new Image();
@@ -62,6 +64,8 @@ class View {
 
     /* показать div с кнопками при проигрыше и сделать их активными */
     setStyleRestart(){
+        this.inputNamenick.removeAttribute('disabled');
+        this.buttonSendNickname.removeAttribute('disabled');
         this.buttonRestart.removeAttribute('disabled');
         this.buttonMainMenu.removeAttribute('disabled');
         document.querySelector('.restart_div').classList.add('nohidden');
@@ -69,9 +73,26 @@ class View {
 
     /* убрать div с кнопками при рестарте и сделать их неактивными */
     setStyleRestartHidden(){
+        this.inputNamenick.setAttribute('disabled', true);
+        this.buttonSendNickname.setAttribute('disabled', true);
         this.buttonRestart.setAttribute('disabled', true);
         this.buttonMainMenu.setAttribute('disabled', true);
         document.querySelector('.restart_div').classList.remove('nohidden');
+    }
+
+    /* ввод ника */
+    getNickname(){
+        if(!this.inputNamenick.value){
+            console.log('нет ника');
+            return '';
+        }
+        return this.inputNamenick.value
+    }
+
+    /* Вызов функции из модели и установки ника в поле для ввода ника */
+    setNickname(nickname){
+        /* Добавить валидацию */
+        this.inputNamenick.value = nickname;
     }
 
     draw(dataDoodle, platforms, bullets, score) {

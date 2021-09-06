@@ -1,21 +1,25 @@
-import { Doodle } from "/js/classes/doodle.js";
+import { Doodle } from '/js/classes/doodle.js';
 import { BasicPlatform } from '/js/classes/basic_platform.js';
 import { RightLeftPlatform } from '/js/classes/right_left_platform.js';
 import { UpDownPlatform } from '/js/classes/up_down_platform.js';
 import { Mobs } from '/js/classes/mobs.js';
 import { Bullet } from '/js/classes/bullet.js';
 import { AudioDoodle } from '/js/classes/audio.js';
+import { LoadData } from '/js/classes/loadData.js';
 
 class Model {
     constructor(view) {
         this.stopTimer = false;
         this.view = view;
+        this.ajax = new LoadData();
         this.view.changePauseName(false);
         this.doodle = new Doodle();
         this.audio = new AudioDoodle();
         this.fieldPlatform = [];
         this.arrayBullets = [];
+        this.arrayScore = [];
         this.score = 0;
+        this.currentNick = '';
         this.startTimer();
         this.startValue = {
             startY: 780,
@@ -28,6 +32,7 @@ class Model {
             minRange: 30,
             maxRange: 70,
         }
+        this.getNamefromLocal();
     }
 
     getObjDoodle() {
@@ -170,6 +175,41 @@ class Model {
 
         this.doodle.setCountDoodle({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft });
         this.view.draw({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft }, this.fieldPlatform, this.arrayBullets, this.score);
+    }
+
+    /* Отправить данные на "сервер" */
+    setDataScore(nick){
+        this.currentNick = nick;
+        this.ajax.readData(this.setDataScoreCallback.bind(this));
+        //this.ajax.lockgetData(data);
+    }
+
+    setDataScoreCallback(data){
+        console.log(data);
+        this.arrayScore = data;
+        this.arrayScore.push({nick: this.currentNick, score: this.score});
+        this.parseData();
+    }
+
+    parseData(){
+        if(this.arrayScore.length > 0){
+            this.arrayScore = this.arrayScore.sort((a, b) =>{
+                return b.score - a.score;
+            });
+        }
+        if(this.arrayScore.length > 29){
+            this.arrayScore.length = 29;
+        }
+        this.ajax.lockgetData(this.arrayScore);
+    }
+
+    /* получить ник из localStorage (даже если пустой) */
+    getNamefromLocal(){
+        this.view.setNickname(localStorage.getItem('DoodleJumpName'));
+    }
+
+    setNicknameinLocal(nickname){
+        localStorage.setItem('DoodleJumpName', nickname);
     }
 
     stopAllPlatform(val){

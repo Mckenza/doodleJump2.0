@@ -9,6 +9,7 @@ class LoadData {
         $.ajax({
             url: this.url,
             type: 'POST',
+            dataType: 'json',
             data: {
                 f: 'READ',
                 n: this.nameData,
@@ -19,7 +20,8 @@ class LoadData {
 
         function resolve(data) {
             console.log('READ - ok');
-            callback(data);
+            console.log(data);
+            callback(JSON.parse(data.result));
         }
 
         function reject() {
@@ -51,7 +53,7 @@ class LoadData {
     }
     */
 
-    lockgetData() {
+    lockgetData(array) {
         $.ajax({
             url: this.url,
             type: 'POST',
@@ -67,7 +69,7 @@ class LoadData {
         function resolve(data) {
             console.log('LOCKGET - ok');
             console.log(data);
-            this.updateData();
+            this.updateData(array);
         }
 
         function reject() {
@@ -75,7 +77,7 @@ class LoadData {
         }
     }
 
-    updateData() {
+    updateData(data) {
         $.ajax({
             url: this.url,
             type: 'POST',
@@ -83,7 +85,7 @@ class LoadData {
                 f: 'UPDATE',
                 n: this.nameData,
                 p: this.pass,
-                v: JSON.stringify([]), /* */
+                v: JSON.stringify(data),
             },
             success: resolve.bind(this),
             error: reject,

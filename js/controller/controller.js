@@ -56,6 +56,7 @@ class Controller {
             }
         });
 
+        /* Кнопка рестарта (поле игры) */
         document.getElementById('restart_button_id').onclick = () => {
             this.isPause = false;
             this.view.setStyleRestartHidden();
@@ -63,6 +64,7 @@ class Controller {
             this.objDoodle = this.model.getObjDoodle();
         }
 
+        /* Кнопка выхода в меню (поле игры) */
         document.getElementById('menu_button_id').onclick = () => {
             this.model.setTimer();
             this.view.setStyleRestartHidden();
@@ -73,6 +75,7 @@ class Controller {
             this.context.setVisibleMenu();
         }
 
+        /* Кнопка паузы (поле игры) */
         document.getElementById('pause_button_id').onclick = () => {
             if (!this.isPause) {
                 this.model.setTimer(true);
@@ -85,6 +88,12 @@ class Controller {
                 this.isPause = false;
                 this.model.stopAllPlatform(false);
             }
+        }
+
+        document.getElementById('save_nickname_id').onclick = () =>{
+            const nick = this.view.getNickname();
+            this.model.setNicknameinLocal(nick);
+            this.model.setDataScore(nick);
         }
     }
 }

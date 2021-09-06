@@ -6,6 +6,7 @@ class ModelMenu {
         this.view = view;
         this.ajax = new LoadData();
         this.dataAjax = [];
+        this.createLocalStorName();
         this.doodle = new Doodle();
         this.doodle.setCountDoodle({
             xStart: 70,
@@ -54,16 +55,34 @@ class ModelMenu {
         setInterval(this.getAnimation.bind(this), 5);
     }
 
+    /* получить все данные рекордов */
     getDataScore(){
         this.ajax.readData(this.loadData.bind(this));      
     }
     
     loadData(data){
         this.dataAjax = data;
+        this.parseData();
     }
 
+    /* {name: nick, score: 123456} */
+
     parseData(){
-        this.dataAjax = this.dataAjax.map()
+        if(this.dataAjax.length > 0){
+            this.dataAjax = this.dataAjax.sort((a, b) =>{
+                return b.score - a.score;
+            });
+        }
+        if(this.dataAjax.length > 29){
+            this.dataAjax.length = 29;
+        }
+        this.ajax.lockgetData(this.dataAjax);
+    }
+
+    createLocalStorName(){
+        if(!localStorage.setItem('DoodleJumpName', '')){
+            localStorage.setItem('DoodleJumpName', '');
+        }   
     }
 }
 
