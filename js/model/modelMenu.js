@@ -63,6 +63,7 @@ class ModelMenu {
     loadData(data){
         this.dataAjax = data;
         this.parseData();
+        this.view.createTableScore(this.dataAjax);
     }
 
     /* {name: nick, score: 123456} */

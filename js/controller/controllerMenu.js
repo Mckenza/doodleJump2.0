@@ -21,9 +21,13 @@ class ControllerMenu{
             }
             if(e.target.id === 'button_records_mainmenu_id'){
                 this.modelMenu.getDataScore();
+                this.viewMenu.visibleScore();
             }
             if(e.target.id === 'button_settings_mainmenu_id'){
                 console.log('s');
+            }
+            if(e.target.id === 'button_back_records_id'){
+                this.viewMenu.unVisibleScore();
             }
         })
     }
