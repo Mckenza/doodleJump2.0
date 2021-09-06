@@ -80,7 +80,7 @@ class ModelMenu {
     }
 
     createLocalStorName(){
-        if(!localStorage.setItem('DoodleJumpName', '')){
+        if(!localStorage.getItem('DoodleJumpName')){
             localStorage.setItem('DoodleJumpName', '');
         }   
     }
