@@ -73,6 +73,7 @@ class View {
 
     /* убрать div с кнопками при рестарте и сделать их неактивными */
     setStyleRestartHidden(){
+        console.log('sd');
         this.inputNamenick.setAttribute('disabled', true);
         this.buttonSendNickname.setAttribute('disabled', true);
         this.buttonRestart.setAttribute('disabled', true);

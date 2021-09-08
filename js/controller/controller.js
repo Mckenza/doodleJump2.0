@@ -89,7 +89,7 @@ class Controller {
                 this.model.stopAllPlatform(false);
             }
         }
-
+        /* Кнопка сохранения результата */
         document.getElementById('save_nickname_id').onclick = () =>{
             const nick = this.view.getNickname();
             this.model.setNicknameinLocal(nick);

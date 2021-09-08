@@ -158,27 +158,33 @@ body{
     border: none;
 }
 
+/* items score list */
+
 .table_records{
     height: 450px;
     width: 280px;
     margin: 20px 20px 0 70px;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
-/* items score list */
+.table_records::-webkit-scrollbar{
+    width: 0;
+}
 
 .list_for_score{
     height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
+    list-style: none;
 }
 
 .one_item_li{
     height: 20%;
     width: 100%;
-    margin-left: 20px;
+    margin-left: 30px;
 }
 
 .one_item_from_list{
@@ -196,6 +202,10 @@ body{
 .one_item_score{
     height: 100%;
     width: 40%;
+}
+
+.one_item_number{
+    margin-right: 5px;
 }
 
 .one_item_from_list *{

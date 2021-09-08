@@ -74,8 +74,8 @@ class ModelMenu {
                 return b.score - a.score;
             });
         }
-        if(this.dataAjax.length > 29){
-            this.dataAjax.length = 29;
+        if(this.dataAjax.length > 30){
+            this.dataAjax.length = 30;
         }
         this.ajax.lockgetData(this.dataAjax);
     }

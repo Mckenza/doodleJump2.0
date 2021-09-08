@@ -24,6 +24,7 @@ class ViewMenu {
         this.buttonStart.setAttribute('disabled', true);
         this.buttonRecords.setAttribute('disabled', true);
         this.buttonSetting.setAttribute('disabled', true);
+        document.querySelector('.restart_div').classList.remove('nohidden');
     }
 
     getMenuDiv(){
@@ -52,17 +53,22 @@ class ViewMenu {
         this.scoreTable.innerHTML = '';
         const list = document.createElement('ol');
         list.setAttribute('class', 'list_for_score');
+        let counter = 1;
         data.forEach(element => {
             const li = document.createElement('li');
             li.setAttribute('class', 'one_item_li');
             const div = document.createElement('div');
             div.setAttribute('class', 'one_item_from_list');
+            const divCounter = document.createElement('div');
+            divCounter.setAttribute('class', 'one_item_number');
+            divCounter.textContent = `${counter++}.`;
             const divNick = document.createElement('div');
             divNick.setAttribute('class', 'one_item_nick');
             const divScore = document.createElement('div');
             divScore.setAttribute('class', 'one_item_score');
             divNick.textContent = element['nick'];
             divScore.textContent = element['score'];
+            div.appendChild(divCounter);
             div.appendChild(divNick);
             div.appendChild(divScore);
             li.appendChild(div);

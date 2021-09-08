@@ -31,6 +31,7 @@ class Model {
         this.configPlatfowm = {
             minRange: 30,
             maxRange: 70,
+            basicChance: 10,
         }
         this.getNamefromLocal();
     }
@@ -46,6 +47,20 @@ class Model {
     getAnimation() {
         if (this.stopTimer) {
             return;
+        }
+
+        if(this.score > 20000 && this.score < 39999){
+            this.configPlatfowm.minRange = 40;
+            this.configPlatfowm.basicChance = 20;
+        }
+        
+        if(this.score > 40000 && this.score < 49999){
+            this.configPlatfowm.basicChance = 30;
+        }
+
+        if(this.score > 50000){
+            this.configPlatfowm.basicChance = 40;
+            this.configPlatfowm.minRange = 40;
         }
 
         let { xStart, yStart, height, vx, vy, direction, moveRight, moveLeft } = this.doodle.getCountDoodle();  // данные о дудле
@@ -197,8 +212,8 @@ class Model {
                 return b.score - a.score;
             });
         }
-        if(this.arrayScore.length > 29){
-            this.arrayScore.length = 29;
+        if(this.arrayScore.length > 30){
+            this.arrayScore.length = 30;
         }
         this.ajax.lockgetData(this.arrayScore);
     }
@@ -250,13 +265,13 @@ class Model {
             for (let i = currentHeight; i > -800;) {
                 randomXforPlatform = Math.floor(Math.random() * (401 - 20) + 20);
                 let randomTypePlatform = Math.floor(Math.random() * 101 + 1);
-                if (randomTypePlatform < 10) {
+                if (randomTypePlatform < this.configPlatfowm.basicChance) {
                     const randomSpawn = Math.floor(Math.random() * 300 + 30);
                     this.fieldPlatform.push(new RightLeftPlatform([randomSpawn, i]));
-                } else if (randomTypePlatform > 11 && randomTypePlatform < 14 && !(this.fieldPlatform[this.fieldPlatform.length - 1] instanceof UpDownPlatform)) {
+                } else if (randomTypePlatform > 61 && randomTypePlatform < 64 && !(this.fieldPlatform[this.fieldPlatform.length - 1] instanceof UpDownPlatform)) {
                     upDownCoef = 300;
                     this.fieldPlatform.push(new UpDownPlatform([randomXforPlatform, i]));
-                } else if (randomTypePlatform > 15 && randomTypePlatform < 18) {
+                } else if (randomTypePlatform > 45 && randomTypePlatform < 48) {
                     if (randomXforPlatform > 200) {
                         const randomWithMob = Math.floor(Math.random() * 100 + 20);
                         const randomYwithMob = Math.floor(Math.random() * 20);
@@ -270,7 +285,12 @@ class Model {
                     }
                     upDownCoef = 60;
                 } else {
-                    this.fieldPlatform.push(new BasicPlatform([randomXforPlatform, i]));
+                    if(this.score < 100000){
+                        this.fieldPlatform.push(new BasicPlatform([randomXforPlatform, i]));
+                    } else {
+                        const randomSpawn = Math.floor(Math.random() * 300 + 30);
+                        this.fieldPlatform.push(new RightLeftPlatform([randomSpawn, i]));
+                    }
                 }
 
                 randomHeightBetweenPlatform = Math.floor(Math.random() * (this.configPlatfowm.maxRange + 1 - this.configPlatfowm.minRange) + this.configPlatfowm.minRange) + upDownCoef;
