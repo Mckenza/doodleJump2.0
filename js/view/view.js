@@ -16,6 +16,7 @@ class View {
         this.doodleImgLeft = new Image();
         this.doodleImgLeft.src = 'img/doodleLeft.png';
         this.stateImg = this.doodleImgLeft;
+        this.currentStare = this.doodleImgLeft;
         this.platformImg = new Image();
         this.platformImg.src = 'img/platform_basic.png';
         this.leftRightImg = new Image();
@@ -30,6 +31,9 @@ class View {
         this.mobOne.src = 'img/mob_one.png';
         this.mobTwo = new Image();
         this.mobTwo.src = 'img/mob_two.png';
+        this.doodleShoot = new Image();
+        this.doodleShoot.src = 'img/doodlesh.png';
+        this.timerSh = null;
         this.setStyleGameField();
     }
 
@@ -96,17 +100,33 @@ class View {
         this.inputNamenick.value = nickname;
     }
 
+    shootDown(){
+        this.stateImg = this.doodleShoot;
+        this.timerSh = setTimeout(() => {
+            this.stateImg = this.currentStare;
+            console.log('df');
+        }, 500);
+    }
+
+    shootUp(){
+        this.stateImg = this.currentStare;
+        clearTimeout(this.timerSh);
+        this.timerSh = null;
+    }
+
     draw(dataDoodle, platforms, bullets, score) {
         const { xStart, yStart, height, vx, vy, direction, moveRight, moveLeft } = dataDoodle;
         this.canvasDraw.clearRect(0, 0, 500, 800);
 
         this.scoreSpan.textContent = score;
 
-        if (moveRight) {
+        if (moveRight && this.stateImg !== this.doodleShoot) {
             this.stateImg = this.doodleImgRight;
+            this.currentStare = this.stateImg;
         }
-        if (moveLeft) {
+        if (moveLeft && this.stateImg !== this.doodleShoot) {
             this.stateImg = this.doodleImgLeft;
+            this.currentStare = this.stateImg;
         }
 
         for (let i = 0; i < platforms.length; i++) {
@@ -145,14 +165,12 @@ class View {
         for(let i = 0; i < bullets.length; i++){
             let coodrs = bullets[i].getCoords();
             this.canvasDraw.beginPath();
-            this.canvasDraw.arc(coodrs[0], coodrs[1], 3, (Math.PI/180) * 0, (Math.PI/180) * 360);
+            this.canvasDraw.arc(coodrs[0] + 30, coodrs[1], 3, (Math.PI/180) * 0, (Math.PI/180) * 360);
             this.canvasDraw.fill();
         }
         
         this.canvasDraw.drawImage(this.stateImg, xStart, yStart);
     }
-
-    
 }
 
 export { View }

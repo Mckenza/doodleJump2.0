@@ -196,7 +196,6 @@ class Model {
     setDataScore(nick){
         this.currentNick = nick;
         this.ajax.readData(this.setDataScoreCallback.bind(this));
-        //this.ajax.lockgetData(data);
     }
 
     setDataScoreCallback(data){
@@ -248,7 +247,7 @@ class Model {
             this.audio.playShoot();
             this.arrayBullets.push(new Bullet([this.startValue.startX, this.startValue.startY]));
             this.arrayBullets.map((value, index) => {
-                if (value.getCoords()[1] < -450) {
+                if (value.getCoords()[1] < -150) {
                     this.arrayBullets.splice(index, 1);
                 }
             });

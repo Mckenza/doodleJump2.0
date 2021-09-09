@@ -27,6 +27,7 @@ class Controller {
 
     /* кнопка движения по сторонам*/
     events() {
+        let shoot = true;
         addEventListener('keydown', (e) => {
             if (e.code === 'ArrowRight' && this.objDoodle !== null) {
                 this.objDoodle.setIsMoveRight(true);
@@ -34,6 +35,13 @@ class Controller {
 
             if (e.code === 'ArrowLeft' && this.objDoodle !== null) {
                 this.objDoodle.setIsMoveLeft(true);
+            }
+            if (e.code === 'Space' && this.objDoodle !== null) {
+                if(shoot){
+                    this.view.shootDown();
+                    this.model.spawnBullet();
+                    shoot = false;
+                }
             }
         });
 
@@ -47,12 +55,9 @@ class Controller {
                 this.objDoodle.setIsMoveLeft(false);
                 this.objDoodle.setVXzero();
             }
-        });
-
-        /* кнопка стрельбы*/
-        addEventListener('keypress', (e) => {
             if (e.code === 'Space' && this.objDoodle !== null) {
-                this.model.spawnBullet();
+                this.view.shootUp();
+                shoot = true;
             }
         });
 
