@@ -139,7 +139,7 @@ class Model {
             yStart += vy;
             vy += 0.04;
 
-            this.fieldPlatform.forEach((value) => {
+            this.fieldPlatform.forEach((value, index) => {
                 const coords = value.getCoords();
                 const extension = value.getAdd();
                 if (coords[1] < yStart || this.gameOverCauseMobs) {
@@ -159,6 +159,9 @@ class Model {
                             this.audio.playJump();
                             this.invincible = false;
                             vy = 4;
+                            if(value instanceof Mobs){
+                                this.fieldPlatform.splice(index, 1);
+                            }
                         }
                         direction = false;
                     }
@@ -171,7 +174,7 @@ class Model {
                 this.fieldPlatform.map(value =>{
                     if(value instanceof Mobs){
                         const coordsMobs = value.getCoords();
-                        if(yStart < coordsMobs[1] + 50){
+                        if(yStart < coordsMobs[1] + 50 && yStart > coordsMobs[1]){
                             if((xStart <= coordsMobs[0] && xStart + 80 > coordsMobs[0]) || (xStart <= coordsMobs[0] + 80 && xStart + 80 > coordsMobs[0]) || (xStart >= coordsMobs[0] && xStart + 80 < coordsMobs[0])){
                                 this.gameOverCauseMobs = true;
                             }
@@ -213,10 +216,15 @@ class Model {
     setDataScore(nick){
         this.currentNick = nick;
         this.ajax.readData(this.setDataScoreCallback.bind(this));
+        this.view.setDisabledSavebutton('save');
     }
 
     setDataScoreCallback(data){
-        console.log(data);
+        if(data === 'Error read data'){
+            this.view.getNickname('error');
+            this.view.setDisabledSavebutton('noSave');
+            return;
+        }
         this.arrayScore = data;
         this.arrayScore.push({nick: this.currentNick, score: this.score});
         this.parseData();
@@ -231,7 +239,17 @@ class Model {
         if(this.arrayScore.length > 30){
             this.arrayScore.length = 30;
         }
-        this.ajax.lockgetData(this.arrayScore);
+        this.ajax.lockgetData(this.arrayScore, this.blockButton.bind(this));
+        
+    }
+
+    blockButton(data){
+        if(data.result === 'OK'){
+            this.view.getNickname('success');
+            this.view.setDisabledSavebutton('save');
+            return;
+        }
+        this.view.setDisabledSavebutton('noSave');
     }
 
     /* получить ник из localStorage (даже если пустой) */

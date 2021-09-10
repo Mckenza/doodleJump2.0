@@ -67,23 +67,8 @@ class ModelMenu {
             return;
         }
         this.dataAjax = data;
-        this.parseData();
         this.view.deteleTimerWait();
         this.view.createTableScore(this.dataAjax);
-    }
-
-    /* {name: nick, score: 123456} */
-
-    parseData(){
-        if(this.dataAjax.length > 0){
-            this.dataAjax = this.dataAjax.sort((a, b) =>{
-                return b.score - a.score;
-            });
-        }
-        if(this.dataAjax.length > 30){
-            this.dataAjax.length = 30;
-        }
-        this.ajax.lockgetData(this.dataAjax);
     }
 
     createLocalStorName(){

@@ -30,7 +30,7 @@ class LoadData {
         }
     }
 
-    lockgetData(array) {
+    lockgetData(array, callback) {
         $.ajax({
             url: this.url,
             type: 'POST',
@@ -46,7 +46,7 @@ class LoadData {
         function resolve(data) {
             console.log('LOCKGET - ok');
             console.log(data);
-            this.updateData(array);
+            this.updateData(array, callback);
         }
 
         function reject() {
@@ -55,7 +55,7 @@ class LoadData {
         }
     }
 
-    updateData(data) {
+    updateData(data, callback) {
         $.ajax({
             url: this.url,
             type: 'POST',
@@ -71,7 +71,7 @@ class LoadData {
 
         function resolve(data) {
             console.log('UPDATE - ok');
-            console.log(data);
+            callback(data);
         }
 
         function reject() {

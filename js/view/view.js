@@ -38,36 +38,37 @@ class View {
     }
 
     /* Меняем надпись на кнопки паузы */
-    changePauseName(state){
-        if(state){
+    changePauseName(state) {
+        if (state) {
             this.pauseButton.querySelector('.icons_pause_play').classList.add('pause');
         } else {
             this.pauseButton.querySelector('.icons_pause_play').classList.remove('pause');
         }
     }
 
-    /* показываем поле для игры и т.д. */ 
-    setStyleGameField(){
+    /* показываем поле для игры и т.д. */
+    setStyleGameField() {
         this.gameDiv.classList.add('viewGame');
     }
-    
+
     /* скрываем поле игры */
-    setStyleGameFieldhidden(){
+    setStyleGameFieldhidden() {
         this.gameDiv.classList.remove('viewGame');
     }
 
     /* скрыть "Готовы?" */
-    setStyleReady(){
+    setStyleReady() {
         document.querySelector('.ready_div').classList.add('hidden');
     }
 
     /* показать "Готовы?" */
-    setStyleReadyNoHidden(){
+    setStyleReadyNoHidden() {
         document.querySelector('.ready_div').classList.remove('hidden');
     }
 
     /* показать div с кнопками при проигрыше и сделать их активными */
-    setStyleRestart(){
+    setStyleRestart() {
+        this.buttonSendNickname.classList.remove('dis');
         this.inputNamenick.removeAttribute('disabled');
         this.buttonSendNickname.removeAttribute('disabled');
         this.buttonRestart.removeAttribute('disabled');
@@ -76,8 +77,7 @@ class View {
     }
 
     /* убрать div с кнопками при рестарте и сделать их неактивными */
-    setStyleRestartHidden(){
-        console.log('sd');
+    setStyleRestartHidden() {
         this.inputNamenick.setAttribute('disabled', true);
         this.buttonSendNickname.setAttribute('disabled', true);
         this.buttonRestart.setAttribute('disabled', true);
@@ -85,32 +85,61 @@ class View {
         document.querySelector('.restart_div').classList.remove('nohidden');
     }
 
-    /* ввод ника */
-    getNickname(){
-        if(!this.inputNamenick.value){
-            console.log('нет ника');
+    /* ввод ника и валидация */
+    getNickname(message) {
+        if (message === 'error') {
+            this.inputNamenick.value = 'Ошибка при сохранении, попробуйте снова';
+            document.querySelector('.nickname_save').classList.add('voidnick');
+            setTimeout(() => {
+                document.querySelector('.nickname_save').classList.remove('voidnick');
+                this.inputNamenick.value = '';
+            }, 2000);
+            return;
+        }
+        if (message === 'success') {
+            document.querySelector('.nickname_save').classList.add('success');
+            setTimeout(() => {
+                document.querySelector('.nickname_save').classList.remove('success');
+            }, 1000);
+            return;
+        }
+        if (!this.inputNamenick.value) {
+            document.querySelector('.nickname_save').classList.add('voidnick');
+            setTimeout(() => {
+                document.querySelector('.nickname_save').classList.remove('voidnick');
+            }, 1000);
             return '';
         }
         return this.inputNamenick.value
     }
 
     /* Вызов функции из модели и установки ника в поле для ввода ника */
-    setNickname(nickname){
+    setNickname(nickname) {
         this.inputNamenick.value = nickname;
     }
 
-    setStyleNickname(){
-
+    /* делать кнопку неактивной при успешном сохранении ника */
+    setDisabledSavebutton(value){
+        if(value === 'noSave'){
+            this.buttonSendNickname.removeAttribute('disabled');
+            this.buttonSendNickname.classList.remove('dis');
+            return;
+        }
+        if(value === 'save'){
+            this.buttonSendNickname.setAttribute('disabled', 'true');
+            this.buttonSendNickname.classList.add('dis');
+            return;
+        }         
     }
 
-    shootDown(){
+    shootDown() {
         this.stateImg = this.doodleShoot;
         this.timerSh = setTimeout(() => {
             this.stateImg = this.currentStare;
         }, 500);
     }
 
-    shootUp(){
+    shootUp() {
         this.stateImg = this.currentStare;
         clearTimeout(this.timerSh);
         this.timerSh = null;
@@ -136,41 +165,41 @@ class View {
             let typePlatfowm = platforms[i].getType();
             let extension = platforms[i].getAdd();
             if (platform[1] > 0) {
-                if(typePlatfowm === 'basic'){
+                if (typePlatfowm === 'basic') {
                     this.canvasDraw.drawImage(this.platformImg, platform[0], platform[1]);
                 }
-                if(typePlatfowm === 'upDown'){
+                if (typePlatfowm === 'upDown') {
                     this.canvasDraw.drawImage(this.upDownImg, platform[0], platform[1]);
                 }
-                if(typePlatfowm === 'rightLeft'){
+                if (typePlatfowm === 'rightLeft') {
                     this.canvasDraw.drawImage(this.leftRightImg, platform[0], platform[1]);
                 }
-                if(extension === 'tramp'){
+                if (extension === 'tramp') {
                     this.canvasDraw.drawImage(this.trampImg, platform[0] + 10, platform[1] - 13);
                 }
-                if(extension === 'spring'){
+                if (extension === 'spring') {
                     this.canvasDraw.drawImage(this.springImg, platform[0] + 30, platform[1] - 10);
                 }
-                if(typePlatfowm === 'mob'){
+                if (typePlatfowm === 'mob') {
                     let randomMob = platforms[i].getRandomMob();
-                    if(randomMob < 50){
+                    if (randomMob < 50) {
                         this.canvasDraw.drawImage(this.mobOne, platform[0], platform[1]);
                     }
-                    if(randomMob > 50){
+                    if (randomMob > 50) {
                         this.canvasDraw.drawImage(this.mobTwo, platform[0], platform[1]);
                     }
                 }
-                
+
             }
         }
 
-        for(let i = 0; i < bullets.length; i++){
+        for (let i = 0; i < bullets.length; i++) {
             let coodrs = bullets[i].getCoords();
             this.canvasDraw.beginPath();
-            this.canvasDraw.arc(coodrs[0], coodrs[1], 3, (Math.PI/180) * 0, (Math.PI/180) * 360);
+            this.canvasDraw.arc(coodrs[0], coodrs[1], 3, (Math.PI / 180) * 0, (Math.PI / 180) * 360);
             this.canvasDraw.fill();
         }
-        
+
         this.canvasDraw.drawImage(this.stateImg, xStart, yStart);
     }
 }

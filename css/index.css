@@ -363,20 +363,38 @@ canvas{
     display: flex;
     justify-content: center;
     align-items: center;
+    background: url('../svg/nickInput.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.nickname_save.voidnick{
+    background: url('../svg/nickInputError.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.nickname_save.success{
+    background: url('../svg/inputNicksuccess.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 #nickname_input_id{
     height: 70%;
     width: 50%;
     border: none;
-    background-color: bisque;
+    background-color: transparent;
     font-family: 'AmaticSC-Bold';
     font-size: 40px;
     text-align: center;
     color: rgba(16, 16, 172, 0.789);
 }
 
-#save_nickname_id{
+.disabled_button{
     height: 70%;
     width: 10%;
     background: url('../img/save_icon.png');
@@ -384,6 +402,13 @@ canvas{
     background-size: contain;
     background-repeat: no-repeat;
     border: none;
+}
+
+.disabled_button.dis{
+    background: url('../img/del_save_icon.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .restart_button{
