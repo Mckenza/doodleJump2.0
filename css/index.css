@@ -250,13 +250,21 @@ body{
     position: relative;
 }
 
-.pause_button span{
+.icons_pause_play{
     position: absolute;
-    top: calc(50% - 30px);
-    left: calc(50% - 46px);
-    font-family: 'AmaticSC-Bold';
-    font-size: 40px;
-    color: rgba(16, 16, 172, 0.789);
+    height: 40px;
+    width: 40px;
+    top: 50%;
+    left: 50%;
+    margin-right: -40%;
+    transform: translate(-100%, -50%);
+    background-position: center;
+    background-repeat: no-repeat;
+    background: url('../img/pause_icon.png');
+}
+
+.icons_pause_play.pause{
+    background: url('../img/play_icon.png');
 }
 
 .doodlejump_main.viewGame{
@@ -342,12 +350,23 @@ canvas{
 
 #nickname_input_id{
     height: 70%;
-    width: 40%;
+    width: 50%;
+    border: none;
+    background-color: bisque;
+    font-family: 'AmaticSC-Bold';
+    font-size: 40px;
+    text-align: center;
+    color: rgba(16, 16, 172, 0.789);
 }
 
 #save_nickname_id{
     height: 70%;
-    width: 20%;
+    width: 10%;
+    background: url('../img/save_icon.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
 }
 
 .restart_button{

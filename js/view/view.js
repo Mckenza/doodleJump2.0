@@ -40,9 +40,9 @@ class View {
     /* Меняем надпись на кнопки паузы */
     changePauseName(state){
         if(state){
-            this.pauseButton.querySelector('span').textContent = 'Продолжить';
+            this.pauseButton.querySelector('.icons_pause_play').classList.add('pause');
         } else {
-            this.pauseButton.querySelector('span').textContent = 'Пауза';
+            this.pauseButton.querySelector('.icons_pause_play').classList.remove('pause');
         }
     }
 
@@ -96,15 +96,17 @@ class View {
 
     /* Вызов функции из модели и установки ника в поле для ввода ника */
     setNickname(nickname){
-        /* Добавить валидацию */
         this.inputNamenick.value = nickname;
+    }
+
+    setStyleNickname(){
+
     }
 
     shootDown(){
         this.stateImg = this.doodleShoot;
         this.timerSh = setTimeout(() => {
             this.stateImg = this.currentStare;
-            console.log('df');
         }, 500);
     }
 
@@ -165,7 +167,7 @@ class View {
         for(let i = 0; i < bullets.length; i++){
             let coodrs = bullets[i].getCoords();
             this.canvasDraw.beginPath();
-            this.canvasDraw.arc(coodrs[0] + 30, coodrs[1], 3, (Math.PI/180) * 0, (Math.PI/180) * 360);
+            this.canvasDraw.arc(coodrs[0], coodrs[1], 3, (Math.PI/180) * 0, (Math.PI/180) * 360);
             this.canvasDraw.fill();
         }
         

@@ -97,8 +97,12 @@ class Controller {
         /* Кнопка сохранения результата */
         document.getElementById('save_nickname_id').onclick = () =>{
             const nick = this.view.getNickname();
-            this.model.setNicknameinLocal(nick);
-            this.model.setDataScore(nick);
+            if(nick){
+                this.model.setNicknameinLocal(nick);
+                this.model.setDataScore(nick);
+            } else {
+
+            }    
         }
     }
 }

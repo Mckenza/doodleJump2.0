@@ -20,6 +20,8 @@ class Model {
         this.arrayScore = [];
         this.score = 0;
         this.currentNick = '';
+        this.gameOverCauseMobs = false;     /* при встрече моба - true */
+        this.invincible = false;            /* при прижках на батуте и пружине - игнорировать мобов */
         this.startTimer();
         this.startValue = {
             startY: 780,
@@ -140,19 +142,22 @@ class Model {
             this.fieldPlatform.forEach((value) => {
                 const coords = value.getCoords();
                 const extension = value.getAdd();
-                if (coords[1] < yStart) {
+                if (coords[1] < yStart || this.gameOverCauseMobs) {
                     return;
                 }
                 if (coords[1] < yStart + height && coords[1] + 15 > yStart + height) {
                     if ((coords[0] <= xStart && coords[0] + 80 >= xStart + height) || (coords[0] > xStart && coords[0] <= xStart + height) || (coords[0] + 80 >= xStart && coords[0] + 80 < xStart + height)) {
                         if (extension === 'tramp') {
                             this.audio.playTramp();
+                            this.invincible = true;
                             vy = 10;
                         } else if (extension === 'spring') {
                             this.audio.playSpring();
+                            this.invincible = true;
                             vy = 7;
                         } else {
                             this.audio.playJump();
+                            this.invincible = false;
                             vy = 4;
                         }
                         direction = false;
@@ -162,6 +167,18 @@ class Model {
         }
 
         if (!direction) {
+            if(!this.invincible){
+                this.fieldPlatform.map(value =>{
+                    if(value instanceof Mobs){
+                        const coordsMobs = value.getCoords();
+                        if(yStart < coordsMobs[1] + 50){
+                            if((xStart <= coordsMobs[0] && xStart + 80 > coordsMobs[0]) || (xStart <= coordsMobs[0] + 80 && xStart + 80 > coordsMobs[0]) || (xStart >= coordsMobs[0] && xStart + 80 < coordsMobs[0])){
+                                this.gameOverCauseMobs = true;
+                            }
+                        } 
+                    }
+                })
+            }
             if (yStart <= 400) {
 
                 this.fieldPlatform.map((value) => {
@@ -245,7 +262,7 @@ class Model {
     spawnBullet() {
         if (!this.stopTimer) {
             this.audio.playShoot();
-            this.arrayBullets.push(new Bullet([this.startValue.startX, this.startValue.startY]));
+            this.arrayBullets.push(new Bullet([this.startValue.startX + 30, this.startValue.startY]));
             this.arrayBullets.map((value, index) => {
                 if (value.getCoords()[1] < -150) {
                     this.arrayBullets.splice(index, 1);
