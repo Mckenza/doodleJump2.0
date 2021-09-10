@@ -15,7 +15,7 @@ class LoadData {
                 n: this.nameData,
             },
             success: resolve.bind(this),
-            error: reject,
+            error: reject.bind(this),
         });
 
         function resolve(data) {
@@ -26,32 +26,9 @@ class LoadData {
 
         function reject() {
             console.log('READ - bad');
+            callback('Error read data');
         }
     }
-    /*
-    insertData(){
-        $.ajax({
-            url: this.url,
-            type: 'POST',
-            data: {
-                f: 'INSERT',
-                n: this.nameData,
-                v: JSON.stringify({}),
-            },
-            success: resolve.bind(this),
-            error: reject,
-        });
-
-        function resolve(data) {
-            console.log('INSERT - ok');
-            console.log(data);
-        }
-
-        function reject() {
-            console.log('INSERT - bad');
-        }
-    }
-    */
 
     lockgetData(array) {
         $.ajax({
@@ -63,7 +40,7 @@ class LoadData {
                 p: this.pass,
             },
             success: resolve.bind(this),
-            error: reject,
+            error: reject.bind(this),
         });
 
         function resolve(data) {
@@ -74,6 +51,7 @@ class LoadData {
 
         function reject() {
             console.log('LOCKGET - bad');
+            alert('Ошибка при обновлении/добавлении данных');
         }
     }
 
@@ -88,7 +66,7 @@ class LoadData {
                 v: JSON.stringify(data),
             },
             success: resolve.bind(this),
-            error: reject,
+            error: reject.bind(this),
         });
 
         function resolve(data) {

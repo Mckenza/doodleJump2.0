@@ -60,9 +60,15 @@ class ModelMenu {
         this.ajax.readData(this.loadData.bind(this));      
     }
     
+    /* ошибка при чтении данных */
     loadData(data){
+        if(data === 'Error read data'){
+            this.view.viewReadData();
+            return;
+        }
         this.dataAjax = data;
         this.parseData();
+        this.view.deteleTimerWait();
         this.view.createTableScore(this.dataAjax);
     }
 

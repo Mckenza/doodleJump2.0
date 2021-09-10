@@ -5,11 +5,13 @@ class ViewMenu {
         this.buttonSetting = document.getElementById('button_settings_mainmenu_id');
         this.scoreDiv = document.getElementById('score_window_id');
         this.scoreTable = document.querySelector('.table_records');
+        this.wait = document.querySelector('.table_record_wait');
         this.menu = document.getElementById('main_menu_id');
         this.canvasPre = document.getElementById('pre_doodle_canvas_id');
         this.canvasDraw = this.canvasPre.getContext('2d');
         this.doodleImgRight = new Image();
         this.doodleImgRight.src = 'img/mainMenuDoodle.png';
+        this.timerWait = null;
     }
 
     draw(dataDoodle) {
@@ -42,11 +44,19 @@ class ViewMenu {
     /* показать окно рекордов */
     visibleScore(){
         this.scoreDiv.classList.remove('unvisible');
+        this.setAnimationWait();
     }
 
     /* скрыть окно рекордов */
     unVisibleScore(){
         this.scoreDiv.classList.add('unvisible');
+    }
+
+    /* сообщение об ошибке при чтении данных с сервера */
+    viewReadData(){
+        this.scoreTable.innerHTML = '';
+        this.scoreTable.textContent = `Ошибка при загрузке данных,
+        попробуйте еще раз или подождите чуть-чуть`;
     }
 
     createTableScore(data){
@@ -76,6 +86,22 @@ class ViewMenu {
         });
         this.scoreTable.appendChild(list);
     }
+
+    /* Анимирование картинки "ожидания загрузки данных с сервера" */
+    setAnimationWait(){
+        let angle = 0;
+        this.timerWait = setInterval(() => {
+            this.wait.setAttribute('style', `transform: rotate(${angle++}deg)`)
+            if(angle === 360){
+                angle = 0;
+            }
+        }, 5);
+    }
+
+    deteleTimerWait(){
+        clearInterval(this.timerWait);
+    }
+
 }
 
 export { ViewMenu };
