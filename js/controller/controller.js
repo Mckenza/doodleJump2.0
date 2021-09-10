@@ -100,9 +100,7 @@ class Controller {
             if(nick){
                 this.model.setNicknameinLocal(nick);
                 this.model.setDataScore(nick);
-            } else {
-
-            }    
+            }
         }
     }
 }
