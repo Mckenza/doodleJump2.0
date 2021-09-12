@@ -1,5 +1,5 @@
-class Doodle{
-    constructor(){
+class Doodle {
+    constructor() {
         this.countDoodle = {
             xStart: 230,
             yStart: 500,
@@ -12,25 +12,25 @@ class Doodle{
         }
     }
 
-    getCountDoodle(){
+    getCountDoodle() {
         return this.countDoodle;
     }
 
-    setCountDoodle(obj){
-        this.countDoodle = {...obj};
+    setCountDoodle(obj) {
+        this.countDoodle = { ...obj };
     }
 
-    setIsMoveRight(value){
+    setIsMoveRight(value) {
         this.countDoodle.moveRight = value;
     }
 
-    setIsMoveLeft(value){
+    setIsMoveLeft(value) {
         this.countDoodle.moveLeft = value;
     }
 
-    setVXzero(){
+    setVXzero() {
         this.countDoodle.vx = 1;
     }
 }
 
-export {Doodle}
+export { Doodle }

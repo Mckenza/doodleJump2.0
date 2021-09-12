@@ -36,7 +36,7 @@ class Controller {
                 this.objDoodle.setIsMoveLeft(true);
             }
             if (e.code === 'KeyF' && this.objDoodle !== null) {
-                if(shoot){
+                if (shoot) {
                     this.view.shootDown();
                     this.model.spawnBullet();
                     shoot = false;
@@ -81,7 +81,7 @@ class Controller {
 
         /* Кнопка паузы (поле игры) */
         document.getElementById('pause_button_id').onclick = () => {
-            if(this.model === null){
+            if (this.model === null) {
                 return;
             }
             if (!this.isPause) {
@@ -97,19 +97,19 @@ class Controller {
             }
         }
         /* Кнопка сохранения результата */
-        document.getElementById('save_nickname_id').onclick = () =>{
+        document.getElementById('save_nickname_id').onclick = () => {
             const nick = this.view.getNickname();
-            if(nick){
+            if (nick) {
                 this.model.setNicknameinLocal(nick);
                 this.model.setDataScore(nick);
             }
         }
 
         /* Кнопка отключения/включения звуков */
-        document.getElementById('mute_unmute_sound').onclick = () =>{ 
-            if(this.model !== null){
+        document.getElementById('mute_unmute_sound').onclick = () => {
+            if (this.model !== null) {
                 this.model.setVolumeGame();
-            };  
+            };
         }
     }
 }

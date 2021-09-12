@@ -19,13 +19,10 @@ class LoadData {
         });
 
         function resolve(data) {
-            console.log('READ - ok');
-            console.log(data);
             callback(JSON.parse(data.result));
         }
 
         function reject() {
-            console.log('READ - bad');
             callback('Error read data');
         }
     }
@@ -44,13 +41,10 @@ class LoadData {
         });
 
         function resolve(data) {
-            console.log('LOCKGET - ok');
-            console.log(data);
             this.updateData(array, callback);
         }
 
         function reject() {
-            console.log('LOCKGET - bad');
             alert('Ошибка при обновлении/добавлении данных');
         }
     }
@@ -70,12 +64,11 @@ class LoadData {
         });
 
         function resolve(data) {
-            console.log('UPDATE - ok');
             callback(data);
         }
 
         function reject() {
-            console.log('UPDATE - bad');
+            alert('Ошибка при обновлении/добавлении данных');
         }
     }
 }

@@ -56,13 +56,13 @@ class ModelMenu {
     }
 
     /* получить все данные рекордов */
-    getDataScore(){
-        this.ajax.readData(this.loadData.bind(this));      
+    getDataScore() {
+        this.ajax.readData(this.loadData.bind(this));
     }
-    
+
     /* ошибка при чтении данных */
-    loadData(data){
-        if(data === 'Error read data'){
+    loadData(data) {
+        if (data === 'Error read data') {
             this.view.viewReadData();
             return;
         }
@@ -71,10 +71,10 @@ class ModelMenu {
         this.view.createTableScore(this.dataAjax);
     }
 
-    createLocalStorName(){
-        if(!localStorage.getItem('DoodleJumpName')){
+    createLocalStorName() {
+        if (!localStorage.getItem('DoodleJumpName')) {
             localStorage.setItem('DoodleJumpName', '');
-        }   
+        }
     }
 }
 

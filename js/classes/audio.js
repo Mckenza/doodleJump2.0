@@ -1,30 +1,30 @@
-class AudioDoodle{
-    constructor(){
+class AudioDoodle {
+    constructor() {
         this.audioObj = new Audio();
         this.audioObj.volume = 0.1;
     }
 
-    playJump(){
+    playJump() {
         this.audioObj.src = 'audio/jump.wav';
         this.audioObj.play();
     }
 
-    playTramp(){
+    playTramp() {
         this.audioObj.src = 'audio/trampoline.mp3';
         this.audioObj.play();
     }
 
-    playSpring(){
+    playSpring() {
         this.audioObj.src = 'audio/feder.mp3';
         this.audioObj.play();
     }
 
-    playShoot(){
+    playShoot() {
         this.audioObj.src = 'audio/shoot.mp3';
         this.audioObj.play();
     }
 
-    setVolume(value){
+    setVolume(value) {
         this.audioObj.volume = value;
     }
 

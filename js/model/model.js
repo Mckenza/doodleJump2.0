@@ -52,16 +52,16 @@ class Model {
             return;
         }
 
-        if(this.score > 20000 && this.score < 39999){
+        if (this.score > 20000 && this.score < 39999) {
             this.configPlatfowm.minRange = 40;
             this.configPlatfowm.basicChance = 20;
         }
-        
-        if(this.score > 40000 && this.score < 49999){
+
+        if (this.score > 40000 && this.score < 49999) {
             this.configPlatfowm.basicChance = 30;
         }
 
-        if(this.score > 50000){
+        if (this.score > 50000) {
             this.configPlatfowm.basicChance = 40;
             this.configPlatfowm.minRange = 40;
         }
@@ -160,7 +160,7 @@ class Model {
                             this.audio.playJump();
                             this.invincible = false;
                             vy = 4;
-                            if(value instanceof Mobs){
+                            if (value instanceof Mobs) {
                                 this.fieldPlatform.splice(index, 1);
                             }
                         }
@@ -171,15 +171,15 @@ class Model {
         }
 
         if (!direction) {
-            if(!this.invincible){
-                this.fieldPlatform.map(value =>{
-                    if(value instanceof Mobs){
+            if (!this.invincible) {
+                this.fieldPlatform.map(value => {
+                    if (value instanceof Mobs) {
                         const coordsMobs = value.getCoords();
-                        if(yStart < coordsMobs[1] + 50 && yStart > coordsMobs[1]){
-                            if((xStart <= coordsMobs[0] && xStart + 80 > coordsMobs[0]) || (xStart <= coordsMobs[0] + 80 && xStart + 80 > coordsMobs[0]) || (xStart >= coordsMobs[0] && xStart + 80 < coordsMobs[0])){
+                        if (yStart < coordsMobs[1] + 50 && yStart > coordsMobs[1]) {
+                            if ((xStart <= coordsMobs[0] && xStart + 80 > coordsMobs[0]) || (xStart <= coordsMobs[0] + 80 && xStart + 80 > coordsMobs[0]) || (xStart >= coordsMobs[0] && xStart + 80 < coordsMobs[0])) {
                                 this.gameOverCauseMobs = true;
                             }
-                        } 
+                        }
                     }
                 })
             }
@@ -214,9 +214,9 @@ class Model {
     }
 
     /* Настройка звука (выкл/вкл) */
-    setVolumeGame(){
+    setVolumeGame() {
         const level = parseFloat(localStorage.getItem('soundDoodleJump'));
-        if(level === 0.1){
+        if (level === 0.1) {
             this.audio.setVolume(0);
             localStorage.setItem('soundDoodleJump', 0);
             this.view.changeIconSound(true);
@@ -228,54 +228,54 @@ class Model {
     }
 
     /* если нет сохраненного уровня громкости - создать */
-    createLocalSound(){
-        if(!localStorage.getItem('soundDoodleJump')){
+    createLocalSound() {
+        if (!localStorage.getItem('soundDoodleJump')) {
             localStorage.setItem('soundDoodleJump', 0.1);
         } else {
             const level = parseFloat(localStorage.getItem('soundDoodleJump'));
             this.audio.setVolume(localStorage.getItem('soundDoodleJump'));
-            if(level === 0.1){
+            if (level === 0.1) {
                 this.view.changeIconSound(false);
             } else {
-                this.view.changeIconSound(true); 
+                this.view.changeIconSound(true);
             }
-            
+
         }
     }
 
     /* Отправить данные на "сервер" */
-    setDataScore(nick){
+    setDataScore(nick) {
         this.currentNick = nick;
         this.ajax.readData(this.setDataScoreCallback.bind(this));
         this.view.setDisabledSavebutton('save');
     }
 
-    setDataScoreCallback(data){
-        if(data === 'Error read data'){
+    setDataScoreCallback(data) {
+        if (data === 'Error read data') {
             this.view.getNickname('error');
             this.view.setDisabledSavebutton('noSave');
             return;
         }
         this.arrayScore = data;
-        this.arrayScore.push({nick: this.currentNick, score: this.score});
+        this.arrayScore.push({ nick: this.currentNick, score: this.score });
         this.parseData();
     }
 
-    parseData(){
-        if(this.arrayScore.length > 0){
-            this.arrayScore = this.arrayScore.sort((a, b) =>{
+    parseData() {
+        if (this.arrayScore.length > 0) {
+            this.arrayScore = this.arrayScore.sort((a, b) => {
                 return b.score - a.score;
             });
         }
-        if(this.arrayScore.length > 30){
+        if (this.arrayScore.length > 30) {
             this.arrayScore.length = 30;
         }
         this.ajax.lockgetData(this.arrayScore, this.blockButton.bind(this));
-        
+
     }
 
-    blockButton(data){
-        if(data.result === 'OK'){
+    blockButton(data) {
+        if (data.result === 'OK') {
             this.view.getNickname('success');
             this.view.setDisabledSavebutton('save');
             return;
@@ -284,20 +284,20 @@ class Model {
     }
 
     /* получить ник из localStorage */
-    getNamefromLocal(){
+    getNamefromLocal() {
         this.view.setNickname(localStorage.getItem('DoodleJumpName'));
     }
 
-    setNicknameinLocal(nickname){
+    setNicknameinLocal(nickname) {
         localStorage.setItem('DoodleJumpName', nickname);
     }
 
-    stopAllPlatform(val){
+    stopAllPlatform(val) {
         this.arrayBullets.map(value => {
             value.pauseObj(val);
         });
-        this.fieldPlatform.map(value =>{
-            if(value.getType() !== 'basic'){
+        this.fieldPlatform.map(value => {
+            if (value.getType() !== 'basic') {
                 value.pauseObj(val);
             }
         })
@@ -350,7 +350,7 @@ class Model {
                     }
                     upDownCoef = 60;
                 } else {
-                    if(this.score < 100000){
+                    if (this.score < 100000) {
                         this.fieldPlatform.push(new BasicPlatform([randomXforPlatform, i]));
                     } else {
                         const randomSpawn = Math.floor(Math.random() * 300 + 30);

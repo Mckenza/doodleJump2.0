@@ -14,25 +14,25 @@ class BasicPlatform {
         this.coords = coords;
     }
 
-    getType(){
+    getType() {
         return this.type;
     }
 
-    randomAdd(){
+    randomAdd() {
         let chance = Math.floor(Math.random() * 100);
-        if(chance < 2){
+        if (chance < 2) {
             this.add = 'tramp';
         }
-        if(chance > 2 && chance < 5){
+        if (chance > 2 && chance < 5) {
             this.add = 'spring';
         }
     }
 
-    getAdd(){
+    getAdd() {
         return this.add;
     }
 
-    pauseObj(value){
+    pauseObj(value) {
         this.pause = value;
     }
 }

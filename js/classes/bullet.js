@@ -11,13 +11,13 @@ class Bullet extends BasicPlatform {
 
     move() {
         setInterval(() => {
-            if(!this.pause){
+            if (!this.pause) {
                 this.coords[1] -= this.vy;
                 if (this.coords[1] < -500) {
                     this.vy = 0;
                     this.isDel = true;
                 }
-            }   
+            }
         }, 5);
     }
 

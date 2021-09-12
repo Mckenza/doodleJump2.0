@@ -119,22 +119,22 @@ class View {
     }
 
     /* делать кнопку неактивной при успешном сохранении ника */
-    setDisabledSavebutton(value){
-        if(value === 'noSave'){
+    setDisabledSavebutton(value) {
+        if (value === 'noSave') {
             this.buttonSendNickname.removeAttribute('disabled');
             this.buttonSendNickname.classList.remove('dis');
             return;
         }
-        if(value === 'save'){
+        if (value === 'save') {
             this.buttonSendNickname.setAttribute('disabled', 'true');
             this.buttonSendNickname.classList.add('dis');
             return;
-        }         
+        }
     }
 
     /* Поменять иконку звука */
-    changeIconSound(isMute){
-        if(isMute){
+    changeIconSound(isMute) {
+        if (isMute) {
             document.querySelector('#icons_sound_off_on_id').classList.add('mute');
         } else {
             document.querySelector('#icons_sound_off_on_id').classList.remove('mute');

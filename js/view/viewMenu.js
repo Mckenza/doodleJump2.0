@@ -21,7 +21,7 @@ class ViewMenu {
     }
 
     /* скрыть главное меню (при переходе на поле игры) */
-    setStyleHidden(){
+    setStyleHidden() {
         this.menu.classList.add('leaveView');
         this.buttonStart.setAttribute('disabled', true);
         this.buttonRecords.setAttribute('disabled', true);
@@ -29,12 +29,12 @@ class ViewMenu {
         document.querySelector('.restart_div').classList.remove('nohidden');
     }
 
-    getMenuDiv(){
+    getMenuDiv() {
         return this.menu;
     }
 
     /* Показать главное меню (из поля игры) */
-    setActiveButtons(){
+    setActiveButtons() {
         this.menu.classList.remove('leaveView');
         this.buttonStart.removeAttribute('disabled');
         this.buttonRecords.removeAttribute('disabled');
@@ -42,24 +42,24 @@ class ViewMenu {
     }
 
     /* показать окно рекордов */
-    visibleScore(){
+    visibleScore() {
         this.scoreDiv.classList.remove('unvisible');
         this.setAnimationWait();
     }
 
     /* скрыть окно рекордов */
-    unVisibleScore(){
+    unVisibleScore() {
         this.scoreDiv.classList.add('unvisible');
     }
 
     /* сообщение об ошибке при чтении данных с сервера */
-    viewReadData(){
+    viewReadData() {
         this.scoreTable.innerHTML = '';
         this.scoreTable.textContent = `Ошибка при загрузке данных,
         попробуйте еще раз или подождите чуть-чуть`;
     }
 
-    createTableScore(data){
+    createTableScore(data) {
         this.scoreTable.innerHTML = '';
         const list = document.createElement('ol');
         list.setAttribute('class', 'list_for_score');
@@ -82,23 +82,23 @@ class ViewMenu {
             div.appendChild(divNick);
             div.appendChild(divScore);
             li.appendChild(div);
-            list.appendChild(li);    
+            list.appendChild(li);
         });
         this.scoreTable.appendChild(list);
     }
 
     /* Анимирование картинки "ожидания загрузки данных с сервера" */
-    setAnimationWait(){
+    setAnimationWait() {
         let angle = 0;
         this.timerWait = setInterval(() => {
             this.wait.setAttribute('style', `transform: rotate(${angle++}deg)`)
-            if(angle === 360){
+            if (angle === 360) {
                 angle = 0;
             }
         }, 5);
     }
 
-    deteleTimerWait(){
+    deteleTimerWait() {
         clearInterval(this.timerWait);
     }
 
