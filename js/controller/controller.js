@@ -77,6 +77,7 @@ class Controller {
             this.model = null;
             this.objDoodle = null;
             this.context.setVisibleMenu();
+            window.onbeforeunload = null;
         }
 
         /* Кнопка паузы (поле игры) */
@@ -110,6 +111,14 @@ class Controller {
             if (this.model !== null) {
                 this.model.setVolumeGame();
             };
+        }
+
+        /* Предупреждение о выходе при начатой игре */
+        window.onbeforeunload = (e) =>{
+            e.preventDefault();
+            const message = 'Результат игры будет утерян, действительно хотите выйти?';
+            e.returnValue = message;
+            return message;
         }
     }
 }
