@@ -25,7 +25,6 @@ class Controller {
         }, 4000);
     }
 
-    /* кнопка движения по сторонам*/
     events() {
         let shoot = true;
         addEventListener('keydown', (e) => {
@@ -82,6 +81,9 @@ class Controller {
 
         /* Кнопка паузы (поле игры) */
         document.getElementById('pause_button_id').onclick = () => {
+            if(this.model === null){
+                return;
+            }
             if (!this.isPause) {
                 this.model.setTimer(true);
                 this.view.changePauseName(true);
@@ -101,6 +103,13 @@ class Controller {
                 this.model.setNicknameinLocal(nick);
                 this.model.setDataScore(nick);
             }
+        }
+
+        /* Кнопка отключения/включения звуков */
+        document.getElementById('mute_unmute_sound').onclick = () =>{ 
+            if(this.model !== null){
+                this.model.setVolumeGame();
+            };  
         }
     }
 }

@@ -132,6 +132,16 @@ class View {
         }         
     }
 
+    /* Поменять иконку звука */
+    changeIconSound(isMute){
+        if(isMute){
+            document.querySelector('#icons_sound_off_on_id').classList.add('mute');
+        } else {
+            document.querySelector('#icons_sound_off_on_id').classList.remove('mute');
+        }
+
+    }
+
     shootDown() {
         this.stateImg = this.doodleShoot;
         this.timerSh = setTimeout(() => {

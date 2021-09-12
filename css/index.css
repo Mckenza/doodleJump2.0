@@ -290,6 +290,62 @@ body{
     transition: opacity 1s, top 2s;
 }
 
+.sound_icons{
+    height: 100px;
+    width: 80%;
+    position: relative;
+    margin: 40px 0 0 50px;
+}
+
+.icons_sound_off_on{
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-150%, -50%);
+    background: url('../img/sound_on.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.icons_sound_off_on.mute{
+    background: url('../img/sound_off.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#mute_unmute_sound{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100px;
+    width: 100px;
+    background: transparent;
+    border: none;
+}
+
+.simple_rules{
+    height: 500px;
+    width: 250px;
+    margin-top: 180px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'AmaticSC-Bold';
+    font-size: 36px;
+    color: rgba(16, 16, 172, 0.789);
+}
+
+.img_rules{
+    height: 280px;
+    width: 250px;
+    background: url('../img/rules.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 /* canvas and game's field */
 
 .wrap_canvas_{

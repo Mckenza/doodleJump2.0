@@ -36,6 +36,7 @@ class Model {
             basicChance: 10,
         }
         this.getNamefromLocal();
+        this.createLocalSound(); // если нет сохраненного уровня громкости - создать
     }
 
     getObjDoodle() {
@@ -212,6 +213,36 @@ class Model {
         this.view.draw({ xStart, yStart, height, vx, vy, direction, moveRight, moveLeft }, this.fieldPlatform, this.arrayBullets, this.score);
     }
 
+    /* Настройка звука (выкл/вкл) */
+    setVolumeGame(){
+        const level = parseFloat(localStorage.getItem('soundDoodleJump'));
+        if(level === 0.1){
+            this.audio.setVolume(0);
+            localStorage.setItem('soundDoodleJump', 0);
+            this.view.changeIconSound(true);
+        } else {
+            this.audio.setVolume(0.1);
+            localStorage.setItem('soundDoodleJump', 0.1);
+            this.view.changeIconSound(false);
+        }
+    }
+
+    /* если нет сохраненного уровня громкости - создать */
+    createLocalSound(){
+        if(!localStorage.getItem('soundDoodleJump')){
+            localStorage.setItem('soundDoodleJump', 0.1);
+        } else {
+            const level = parseFloat(localStorage.getItem('soundDoodleJump'));
+            this.audio.setVolume(localStorage.getItem('soundDoodleJump'));
+            if(level === 0.1){
+                this.view.changeIconSound(false);
+            } else {
+                this.view.changeIconSound(true); 
+            }
+            
+        }
+    }
+
     /* Отправить данные на "сервер" */
     setDataScore(nick){
         this.currentNick = nick;
@@ -252,7 +283,7 @@ class Model {
         this.view.setDisabledSavebutton('noSave');
     }
 
-    /* получить ник из localStorage (даже если пустой) */
+    /* получить ник из localStorage */
     getNamefromLocal(){
         this.view.setNickname(localStorage.getItem('DoodleJumpName'));
     }

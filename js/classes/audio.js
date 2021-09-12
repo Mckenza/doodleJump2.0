@@ -24,6 +24,9 @@ class AudioDoodle{
         this.audioObj.play();
     }
 
+    setVolume(value){
+        this.audioObj.volume = value;
+    }
 
 }
 
