@@ -17,6 +17,10 @@ body{
     width: 100%;
     position: relative;
     overflow: hidden;
+    background: url('../img/background_body.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .background_all{
@@ -156,6 +160,30 @@ body{
     width: 70px;
     background: transparent;
     border: none;
+}
+
+.img_one{
+    position: absolute;
+    top: 100px;
+    right: 100px;
+    height: 50px;
+    width: 100px;
+    background-image: url('../img/just_img.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+.img_two{
+    position: absolute;
+    bottom: 200px;
+    left: 100px;
+    height: 90px;
+    width: 150px;
+    background-image: url('../img/mob_two.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
 }
 
 /* items score list */
@@ -336,6 +364,10 @@ body{
     font-family: 'AmaticSC-Bold';
     font-size: 36px;
     color: rgba(16, 16, 172, 0.789);
+}
+
+.description_shoot, .description_move{
+    text-align: center;
 }
 
 .img_rules{

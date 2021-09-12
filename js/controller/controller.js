@@ -35,7 +35,7 @@ class Controller {
             if (e.code === 'ArrowLeft' && this.objDoodle !== null) {
                 this.objDoodle.setIsMoveLeft(true);
             }
-            if (e.code === 'Space' && this.objDoodle !== null) {
+            if (e.code === 'KeyF' && this.objDoodle !== null) {
                 if(shoot){
                     this.view.shootDown();
                     this.model.spawnBullet();
@@ -54,7 +54,7 @@ class Controller {
                 this.objDoodle.setIsMoveLeft(false);
                 this.objDoodle.setVXzero();
             }
-            if (e.code === 'Space' && this.objDoodle !== null) {
+            if (e.code === 'KeyF' && this.objDoodle !== null) {
                 this.view.shootUp();
                 shoot = true;
             }
